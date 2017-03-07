@@ -6,7 +6,13 @@ public class Pessoa {
 	private String cpf;
 	private String email;
 
-	public Pessoa(String nome, String cpf, String email) {
+	public Pessoa(String nome, String cpf, String email) throws Exception {
+		if (nome == null || nome.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: Nome nulo ou vazio");
+		else if (cpf == null || cpf.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: CPF nulo ou vazio");
+		else if (email == null || email.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: Email nulo ou vazio");
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
@@ -28,7 +34,7 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
 		this.email = email;
 	}
 
