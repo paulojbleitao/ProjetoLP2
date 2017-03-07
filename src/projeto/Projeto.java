@@ -1,3 +1,5 @@
+package projeto;
+
 import java.time.*;
 
 public class Projeto {
@@ -7,6 +9,6 @@ public class Projeto {
 	private LocalDate data;
 	private int duracao;
 	private String codigo;
-	s
+	
 	
 }
