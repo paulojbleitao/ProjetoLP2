@@ -12,10 +12,15 @@ public class Monitoria extends Projeto {
 			String codigo) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.despesasConstantes = 0;
-		this.disciplina = disciplina;
+		if (disciplina == null || disciplina.trim().equals("")) {
+			throw new Exception ("Erro no cadastro da discilplina: Disciplina nulo ou vazia");
+		}
 		if (rendimento < 0 || rendimento > 100) {
 			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
 		}
+		this.disciplina = disciplina;
+		this.rendimento = rendimento;
+		
 	}
 
 	public double getDespesasConstantes() {

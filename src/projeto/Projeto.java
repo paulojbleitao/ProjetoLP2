@@ -14,8 +14,11 @@ public class Projeto {
 		if (nome == null || nome.trim().equals("")) {
 			throw new Exception("Erro no cadastro de projeto: Nome nulo ou vazio");
 		}
-		if (objetivo == null || nome.trim().equals("")) {
+		if (objetivo == null || objetivo.trim().equals("")) {
 			throw new Exception("Erro no cadastro de projeto: Objetivo nulo ou vazio");
+		}
+		if (dataInicio == null || dataInicio.equals("")) { 
+			throw new Exception("Erro no cadastro de projeto: Data de inicio nula ou vazia");
 		}
 		if (duracao <= 0) {
 			throw new Exception("Erro no cadastro de projeto: Duracao invalida");
