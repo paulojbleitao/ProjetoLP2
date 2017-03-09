@@ -8,6 +8,10 @@ public class GerenciadorPessoa {
 
 	HashSet<Pessoa> pessoas;
 	
+	public GerenciadorPessoa() {
+		pessoas = new HashSet<>();
+	}
+	
 	private Pessoa buscaPessoa(String cpf) throws Exception {
 		for (Pessoa p: pessoas) {
 			if (p.getCpf().equals(cpf))
@@ -15,13 +19,6 @@ public class GerenciadorPessoa {
 		}
 		throw new Exception("Erro na consulta de pessoa: Pessoa nao encontrada");
 	}
-	
-	public GerenciadorPessoa() {
-		pessoas = new HashSet<>();
-	}
-	
-	public void iniciaSistema() {}
-	public void fechaSistema() {}
 	
 	private boolean validaEmail(String email) {
 		int arrobas = 0;
@@ -58,9 +55,15 @@ public class GerenciadorPessoa {
 	}
 	
 	public String cadastraPessoa(String cpf, String nome, String email) throws Exception {
-		if (this.validaEmail(email) == false)
+		if (nome == null || nome.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: Nome nulo ou vazio");
+		else if (cpf == null || cpf.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: CPF nulo ou vazio");
+		else if (email == null || email.trim().equals(""))
+			throw new Exception("Erro no cadastro de pessoa: Email nulo ou vazio");
+		else if (this.validaEmail(email) == false)
 			throw new Exception("Erro no cadastro de pessoa: Email invalido");
-		if (this.validaCpf(cpf) == false)
+		else if (this.validaCpf(cpf) == false)
 			throw new Exception("Erro no cadastro de pessoa: CPF invalido");
 		Pessoa p = new Pessoa(nome, cpf, email);
 		if (pessoas.contains(p))
@@ -70,11 +73,25 @@ public class GerenciadorPessoa {
 	}
 	
 	public void editaPessoa(String cpf, String atributo, String valor) throws Exception {
+		if (cpf == null || cpf.trim().equals(""))
+			throw new Exception("Erro na atualizacao de pessoa: CPF nulo ou vazio");
+		if (this.validaCpf(cpf) == false)
+			throw new Exception("Erro na atualizacao de pessoa: CPF invalido");
+		
 		Pessoa p = this.buscaPessoa(cpf);
-		if (atributo.equalsIgnoreCase("nome"))
+		if (atributo.equalsIgnoreCase("nome")) {
+			if (valor == null || valor.trim().equals(""))
+				throw new Exception("Erro na atualizacao de pessoa: Nome nulo ou vazio");
 			p.setNome(valor);
-		else if (atributo.equalsIgnoreCase("email"))
+		} else if (atributo.equalsIgnoreCase("email")) {
+			if (valor == null || valor.trim().equals(""))
+				throw new Exception("Erro na atualizacao de pessoa: Email nulo ou vazio");
+			if (this.validaEmail(valor) == false)
+				throw new Exception("Erro na atualizacao de pessoa: Email invalido");
 			p.setEmail(valor);
+		} else if (atributo.equalsIgnoreCase("cpf")) {
+			throw new Exception("Erro na atualizacao de pessoa: CPF nao pode ser alterado");
+		}
 	}
 	
 	public String getInfoPessoa(String cpf, String atributo) throws Exception {
