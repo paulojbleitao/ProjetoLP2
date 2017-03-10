@@ -20,7 +20,7 @@ public class Monitoria extends Projeto {
 		}
 		this.disciplina = disciplina;
 		this.rendimento = rendimento;
-		
+		this.despesasConstantes = 0;
 	}
 
 	public double getDespesasConstantes() {

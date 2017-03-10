@@ -11,10 +11,10 @@ public class PED extends Projeto {
 	protected double despesasConstantes;
 
 	public PED(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
-			HashSet<Producao> colecaoProd, double despesasConstantes) throws Exception {
+			HashSet<Producao> colecaoProd) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.colecaoProd = colecaoProd;
-		this.despesasConstantes = despesasConstantes;
+		this.despesasConstantes = 0;
 		// falta o tratamento de colecaoProd ser null, e as despesas contantes
 	}
 

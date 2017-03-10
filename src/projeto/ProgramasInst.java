@@ -10,8 +10,8 @@ public class ProgramasInst extends PED {
 	private String tipo;
 
 	public ProgramasInst(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
-			HashSet<Producao> colecaoProd, String tipo, double despesasConstantes) throws Exception {
-		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd, despesasConstantes);
+			HashSet<Producao> colecaoProd, String tipo) throws Exception {
+		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
 		this.tipo = tipo;
 		//tratamento do tipo
 	}

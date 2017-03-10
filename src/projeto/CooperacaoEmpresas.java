@@ -11,11 +11,11 @@ public class CooperacaoEmpresas extends PED {
 	private double capital;
 
 	public CooperacaoEmpresas(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
-			HashSet<Producao> colecaoProd, double despesasConstantes, double despesasEventuais, double capital)
+			HashSet<Producao> colecaoProd)
 			throws Exception {
-		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd, despesasConstantes);
-		this.despesasEventuais = despesasEventuais;
-		this.capital = capital;
+		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
+		this.despesasEventuais = 0;
+		this.capital = 0;
 		//tratamento dos valores
 	}
 

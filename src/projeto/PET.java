@@ -19,6 +19,8 @@ public class PET extends Projeto {
 		this.impacto = impacto;
 		this.rendimento = rendimento;
 		this.colecaoProd = colecaoProd;
+		this.despesasConstantes = 0;
+		this.despesasEventuais = 0;
 	}
 
 	public int getImpacto() {

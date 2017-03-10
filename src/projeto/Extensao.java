@@ -15,7 +15,8 @@ public class Extensao extends Projeto {
 			throw new Exception("Erro no cadastro de projeto: Impacto invalida");
 		}
 		this.impacto = impacto;
-
+		this.despesasEventuais = 0;
+		this.despesasConstantes = 0;
 	}
 
 	public int getImpacto() {
