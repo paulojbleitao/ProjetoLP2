@@ -1,6 +1,12 @@
 #################
 # User Story 2  #
 #################
+
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
 
@@ -24,6 +30,8 @@ expect "16" getInfoProjeto codigo=${cod3} atributo="Duracao"
 expect "2" getInfoProjeto codigo=${cod4} atributo="Producao tecnica"
 expect "4" getInfoProjeto codigo=${cod4} atributo="Producao academica"
 
+expect ${cod1} getCodigoProjeto nome="Monitoria de P2"
+expect ${cod2} getCodigoProjeto nome="PET Computacao"
 
 ###############################
 #      Atualiza Projetos      #
@@ -32,7 +40,7 @@ expect "4" getInfoProjeto codigo=${cod4} atributo="Producao academica"
 editaProjeto codigo=${cod1} atributo="Duracao" valor=12
 editaProjeto codigo=${cod2} atributo="Objetivo" valor="Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao"
 expect "12" getInfoProjeto codigo=${cod1} atributo="Duracao"
-expect "Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao" getInfoProjeto codigo=cod2 atributo="Objetivo"
+expect "Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao" getInfoProjeto codigo=${cod2} atributo="Objetivo"
 
 ###############################
 #      Remove Projeto         #
@@ -42,5 +50,7 @@ removeProjeto codigo=${cod2}
 expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Nome"
 expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Duracao"
 expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Objetivo"
+
+adicionaPET nome="PET Computacao" objetivo="Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao" impacto=1 rendimento=80 prodTecnica=1 prodAcademica=2 patentes=0 dataInicio=03/02/2017 duracao=12 
 
 fechaSistema
