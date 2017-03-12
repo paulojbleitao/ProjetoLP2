@@ -15,7 +15,10 @@ public class PED extends Projeto {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.colecaoProd = colecaoProd;
 		this.despesasConstantes = 0;
-		// falta o tratamento de colecaoProd ser null, e as despesas contantes
+		if (colecaoProd == null || colecaoProd.size() == 0) {
+			throw new Exception("Erro no cadastro de projeto: Colecao de produtividade nulo ou vazio");
+		}
+
 	}
 
 	public double getDespesasConstantes() {
@@ -31,5 +34,3 @@ public class PED extends Projeto {
 	}
 
 }
-
-
