@@ -20,17 +20,7 @@ public class PET extends Projeto {
 		this.rendimento = rendimento;
 		this.colecaoProd = colecaoProd;
 		this.despesasConstantes = 0;
-		this.despesasEventuais = 0;
-		if (impacto < 1 || impacto > 6) {
-			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
-		}
-		if (rendimento < 0 || rendimento > 100) {
-			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
-		}
-		if (colecaoProd == null || colecaoProd.size() == 0) {
-			throw new Exception("Erro no cadastro de projeto: Colecao de produtividade nulo ou vazio");
-		}
-			
+		this.despesasEventuais = 0;			
 	}
 
 	public int getImpacto() {

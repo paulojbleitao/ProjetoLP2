@@ -18,7 +18,6 @@ public class PED extends Projeto {
 		if (colecaoProd == null || colecaoProd.size() == 0) {
 			throw new Exception("Erro no cadastro de projeto: Colecao de produtividade nulo ou vazio");
 		}
-
 	}
 
 	public double getDespesasConstantes() {

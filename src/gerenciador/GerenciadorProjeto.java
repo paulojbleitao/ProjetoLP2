@@ -36,9 +36,21 @@ public class GerenciadorProjeto {
 	public void fechaSistema() {
 	}
 
-	private boolean validaData(String dataInicio) throws Exception {
+	private void validaProjeto(String nome, String objetivo, int duracao) throws Exception {
+		if (nome == null || nome.trim().equals("")) {
+			throw new Exception("Erro no cadastro de projeto: Nome nulo ou vazio");
+		}
+		if (objetivo == null || objetivo.trim().equals("")) {
+			throw new Exception("Erro no cadastro de projeto: Objetivo nulo ou vazio");
+		}
+		if (duracao <= 0) {
+			throw new Exception("Erro no cadastro de projeto: Duracao invalida");
+		}
+	}
+
+	private boolean validaData(String dataInicio) {
 		if (dataInicio.trim().equals("") || dataInicio == null) {
-			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
+			return false;
 		}
 		if (dataInicio.length() != 10) {
 			return false;
@@ -64,18 +76,33 @@ public class GerenciadorProjeto {
 
 	public String adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
 			String dataInicio, int duracao) throws Exception {
-		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
-		String codigoStr = "codigo" + codigoInt;
+		validaProjeto(nome, objetivo, duracao);
+		if (disciplina == null || disciplina.trim().equals("")) {
+			throw new Exception("Erro no cadastro da disciplina: Disciplina nulo ou vazia");
+		}
+		if (rendimento < 0 || rendimento > 100) {
+			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
+		}
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
+		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
+		String codigoStr = "codigo" + codigoInt;
 		LocalDate data = this.converteData(dataInicio);
 		Projeto monitoria = new Monitoria(nome, disciplina, objetivo, rendimento, data, duracao, codigoStr);
 		projetos.add(monitoria);
 		return codigoStr;
 	}
 
-	public String adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws Exception {
+	public String adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica,
+			int prodAcademica, int patentes, String dataInicio, int duracao) throws Exception {
+		validaProjeto(nome, objetivo, duracao);
+		if (impacto < 1 || impacto > 6) {
+			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
+		}
+		if (rendimento < 0 || rendimento > 100) {
+			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
+		}
 		FactoryPED obterProducao = new FactoryPED();
 		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
 		String codigoStr = "codigo" + codigoInt;
@@ -84,32 +111,43 @@ public class GerenciadorProjeto {
 		}
 		LocalDate data = this.converteData(dataInicio);
 		HashSet<Producao> colecaoProd = obterProducao.getColecaoProd(prodTecnica, prodAcademica, patentes);
+		if (colecaoProd == null || colecaoProd.size() == 0) {
+			throw new Exception("Erro no cadastro de projeto: Colecao de produtividade nulo ou vazio");
+		}
 		Projeto pet = new PET(nome, objetivo, data, duracao, codigoStr, impacto, rendimento, colecaoProd);
 		projetos.add(pet);
 		return codigoStr;
 	}
 
-	public String adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) throws Exception {
-		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
-		String codigoStr = "codigo" + codigoInt;
+	public String adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao)
+			throws Exception {
+		validaProjeto(nome, objetivo, duracao);
+		if (impacto < 1 || impacto > 6) {
+			throw new Exception("Erro no cadastro de projeto: Impacto invalida");
+		}
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
+		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
+		String codigoStr = "codigo" + codigoInt;
 		LocalDate data = this.converteData(dataInicio);
 		Projeto extensao = new Extensao(nome, objetivo, impacto, data, duracao, codigoStr);
 		projetos.add(extensao);
 		return codigoStr;
 	}
 
-	public String adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws Exception {
-		FactoryPED factoryPED = new FactoryPED(); 		
+	public String adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
+			String objetivo, String dataInicio, int duracao) throws Exception {
+		validaProjeto(nome, objetivo, duracao);
+		FactoryPED factoryPED = new FactoryPED();
 		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
 		String codigoStr = "codigo" + codigoInt;
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
 		LocalDate data = this.converteData(dataInicio);
-		Projeto ped = factoryPED.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, data, duracao, codigoStr);
+		Projeto ped = factoryPED.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, data, duracao,
+				codigoStr);
 		projetos.add(ped);
 		return codigoStr;
 	}

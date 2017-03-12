@@ -11,9 +11,6 @@ public class Extensao extends Projeto {
 	public Extensao(String nome, String objetivo, int impacto, LocalDate dataInicio, int duracao, String codigo)
 			throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
-		if (impacto < 1 || impacto > 6) {
-			throw new Exception("Erro no cadastro de projeto: Impacto invalida");
-		}
 		this.impacto = impacto;
 		this.despesasEventuais = 0;
 		this.despesasConstantes = 0;

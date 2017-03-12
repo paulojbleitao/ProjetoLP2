@@ -11,21 +11,6 @@ public class Projeto {
 	private String codigo;
 
 	public Projeto(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo) throws Exception {
-		if (nome == null || nome.trim().equals("")) {
-			throw new Exception("Erro no cadastro de projeto: Nome nulo ou vazio");
-		}
-		if (objetivo == null || objetivo.trim().equals("")) {
-			throw new Exception("Erro no cadastro de projeto: Objetivo nulo ou vazio");
-		}
-		if (dataInicio == null || dataInicio.equals("")) { 
-			throw new Exception("Erro no cadastro de projeto: Data de inicio nula ou vazia");
-		}
-		if (duracao <= 0) {
-			throw new Exception("Erro no cadastro de projeto: Duracao invalida");
-		}
-		if (codigo == null || codigo.trim().equals("")) {
-			throw new Exception("Erro no cadastro de projeto: Codigo nulo ou vazio");
-		}
 		this.nome = nome;
 		this.objetivo = objetivo;
 		this.dataInicio = dataInicio;
