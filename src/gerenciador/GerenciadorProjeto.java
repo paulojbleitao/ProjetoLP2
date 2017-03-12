@@ -4,6 +4,7 @@ import java.time.*;
 import java.util.HashSet;
 
 import javafx.util.converter.LocalDateStringConverter;
+import producao.FactoryProducao;
 import producao.Producao;
 import projeto.Extensao;
 import projeto.Monitoria;
@@ -98,19 +99,18 @@ public class GerenciadorProjeto {
 			int prodAcademica, int patentes, String dataInicio, int duracao) throws Exception {
 		validaProjeto(nome, objetivo, duracao);
 		if (impacto < 1 || impacto > 6) {
-			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
+			throw new Exception("Erro no cadastro de projeto: Impacto invalido");
 		}
 		if (rendimento < 0 || rendimento > 100) {
 			throw new Exception("Erro no cadastro de projeto: Rendimento invalido");
 		}
-		FactoryPED obterProducao = new FactoryPED();
 		int codigoInt = ThreadLocalRandom.current().nextInt(1, 101);
 		String codigoStr = "codigo" + codigoInt;
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
 		LocalDate data = this.converteData(dataInicio);
-		HashSet<Producao> colecaoProd = obterProducao.getColecaoProd(prodTecnica, prodAcademica, patentes);
+		HashSet<Producao> colecaoProd = getColecaoProd(prodTecnica, prodAcademica, patentes);
 		if (colecaoProd == null || colecaoProd.size() == 0) {
 			throw new Exception("Erro no cadastro de projeto: Colecao de produtividade nulo ou vazio");
 		}
@@ -123,7 +123,7 @@ public class GerenciadorProjeto {
 			throws Exception {
 		validaProjeto(nome, objetivo, duracao);
 		if (impacto < 1 || impacto > 6) {
-			throw new Exception("Erro no cadastro de projeto: Impacto invalida");
+			throw new Exception("Erro no cadastro de projeto: Impacto invalido");
 		}
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
@@ -146,10 +146,38 @@ public class GerenciadorProjeto {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
 		LocalDate data = this.converteData(dataInicio);
-		Projeto ped = factoryPED.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, data, duracao,
-				codigoStr);
+		HashSet<Producao> colecaoProd = getColecaoProd(prodTecnica, prodAcademica, patentes);
+		Projeto ped = factoryPED.criaPED(nome, categoria, colecaoProd, objetivo, data, duracao, codigoStr);
 		projetos.add(ped);
 		return codigoStr;
+
+	}
+
+	private HashSet<Producao> getColecaoProd(int prodTecnica, int prodAcademica, int patentes) throws Exception {
+		if (prodTecnica < 0) {
+			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+		}
+		if (prodAcademica < 0) {
+			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+		}
+		if (patentes < 0) {
+			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+		}
+		HashSet<Producao> colecaoProd = new HashSet<>();
+		FactoryProducao factoryProd = new FactoryProducao();
+		if (prodTecnica > 0) {
+			Producao prodTec = factoryProd.criaProducao("producaoTecnica", prodTecnica);
+			colecaoProd.add(prodTec);
+		}
+		if (prodAcademica > 0) {
+			Producao prodAca = factoryProd.criaProducao("producaoAcademica", prodAcademica);
+			colecaoProd.add(prodAca);
+		}
+		if (patentes > 0) {
+			Producao pat = factoryProd.criaProducao("patentes", patentes);
+			colecaoProd.add(pat);
+		}
+		return colecaoProd;
 	}
 
 }
