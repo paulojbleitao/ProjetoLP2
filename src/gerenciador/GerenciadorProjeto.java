@@ -54,13 +54,17 @@ public class GerenciadorProjeto {
 		if (dataInicio.charAt(2) != '/' || dataInicio.charAt(5) != '/') {
 			return false;
 		}
-		LocalDate data = this.converteData(dataInicio);
-		if (data.getDayOfMonth() > data.lengthOfMonth() || data.getDayOfMonth() < 1) {
+		try {
+			LocalDate data = this.converteData(dataInicio);
+		} catch(Exception e) {
+			return false;
+		}
+	/*	if (data.getDayOfMonth() > data.lengthOfMonth() || data.getDayOfMonth() < 1) {
 			return false;
 		}
 		if (data.getMonthValue() > 12 || data.getMonthValue() < 1) {
 			return false;
-		}
+		}*/
 		return true;
 	}
 
