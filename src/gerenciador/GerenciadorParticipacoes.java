@@ -1,6 +1,7 @@
 package gerenciador;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 
 import participacao.FactoryParticipacao;
@@ -10,16 +11,26 @@ import projeto.Projeto;
 
 public class GerenciadorParticipacoes {
 	
-	Map<Pessoa, Projeto> Participacoes;
-	Map<Projeto, Pessoa> Participantes;
+	ArrayList<Participacao> participacoes;
 	FactoryParticipacao factoryParticipacao;
 	GerenciadorPessoa gerenPessoa;
 	GerenciadorProjeto gerenProjeto;
 		
-	public void associaProfessor (String cpf, String codigo , LocalDate dataInicio, int horasSemanais, double valorHora, boolean coordenador) throws Exception {
+	public void associaProfessor (String cpf, String codigo , int horasSemanais, double valorHora, boolean coordenador) throws Exception {
+		if (horasSemanais <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
+		}
+		if (valorHora <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+		}
 		Participacao prof;
 		Projeto projeto = gerenProjeto.buscaProjeto(codigo);
-		prof = factoryParticipacao.criaProfessor(gerenPessoa.buscaPessoa(cpf), projeto, dataInicio, projeto.getDuracao(), horasSemanais, valorHora, coordenador);
+		Pessoa pessoa = gerenPessoa.buscaPessoa(cpf);
+		if (projeto.getClass().getName().equals("Monitoria")) {
+			if (participacoes.contains(o))
+			}
+		}
+		prof = factoryParticipacao.criaProfessor(pessoa, projeto, projeto.getDataInicio(), projeto.getDuracao(), horasSemanais, valorHora, coordenador);
 		
 		
 		
