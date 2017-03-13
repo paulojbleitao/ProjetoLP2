@@ -12,7 +12,7 @@ public class GerenciadorPessoa {
 		pessoas = new HashSet<>();
 	}
 	
-	private Pessoa buscaPessoa(String cpf) throws Exception {
+	public Pessoa buscaPessoa(String cpf) throws Exception {
 		for (Pessoa p: pessoas) {
 			if (p.getCpf().equals(cpf))
 				return p;
