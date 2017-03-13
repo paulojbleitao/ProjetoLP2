@@ -1,0 +1,88 @@
+package participacao;
+
+import java.time.LocalDate;
+
+import pessoa.Pessoa;
+import projeto.Projeto;
+
+public class Participacao {
+
+	protected Pessoa pessoa;
+	protected Projeto projeto;
+	protected LocalDate dataInicio;
+	protected int duracao;
+	protected int horasSemanais;
+	protected double valorHora;
+
+	public Participacao(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao, int horasSemanais,
+			double valorHora) {
+		this.pessoa = pessoa;
+		this.projeto = projeto;
+		this.dataInicio = dataInicio;
+		this.duracao = duracao;
+		this.horasSemanais = horasSemanais;
+		this.valorHora = valorHora;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public int getDuracao() {
+		return duracao;
+	}
+
+	public int getHorasSemanais() {
+		return horasSemanais;
+	}
+
+	public double getValorHora() {
+		return valorHora;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataInicio == null) ? 0 : dataInicio.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + ((projeto == null) ? 0 : projeto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Participacao other = (Participacao) obj;
+		if (dataInicio == null) {
+			if (other.dataInicio != null)
+				return false;
+		} else if (!dataInicio.equals(other.dataInicio))
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
+				return false;
+		} else if (!pessoa.equals(other.pessoa))
+			return false;
+		if (projeto == null) {
+			if (other.projeto != null)
+				return false;
+		} else if (!projeto.equals(other.projeto))
+			return false;
+		return true;
+	}
+
+}
