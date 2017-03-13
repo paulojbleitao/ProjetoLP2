@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 
 import producao.Producao;
+import producao.Produtividade;
 
 public class PED extends Projeto {
 
@@ -30,6 +31,22 @@ public class PED extends Projeto {
 
 	public HashSet<Producao> getColecaoProd() {
 		return colecaoProd;
+	}
+	
+	public int getProducaoAcademica() {
+		for (Producao p: colecaoProd) {
+			if (p.getProdutividade() == Produtividade.PRODUCAO_ACADEMICA)
+				return p.getQuant();
+		}
+		return 0;
+	}
+	
+	public int getProducaoTecnica() {
+		for (Producao p: colecaoProd) {
+			if (p.getProdutividade() == Produtividade.PRODUCAO_TECNICA)
+				return p.getQuant();
+		}
+		return 0;
 	}
 
 }

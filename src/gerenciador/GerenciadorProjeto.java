@@ -8,6 +8,7 @@ import producao.FactoryProducao;
 import producao.Producao;
 import projeto.Extensao;
 import projeto.Monitoria;
+import projeto.PED;
 import projeto.PET;
 import projeto.Projeto;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,23 +19,17 @@ public class GerenciadorProjeto {
 
 	HashSet<Projeto> projetos;
 
+	public GerenciadorProjeto() {
+		projetos = new HashSet<>();
+	}
+	
 	public Projeto buscaProjeto(String codigo) throws Exception {
 		for (Projeto projeto : projetos) {
 			if (projeto.getCodigo().equals(codigo)) {
 				return projeto;
 			}
 		}
-		throw new Exception("Erro na consulta de Projeto: Projeto nao encontrado");
-	}
-
-	public GerenciadorProjeto() {
-		projetos = new HashSet<>();
-	}
-
-	public void iniciaSistema() {
-	}
-
-	public void fechaSistema() {
+		throw new Exception("Erro na consulta de projeto: Projeto nao encontrado");
 	}
 
 	private void validaProjeto(String nome, String objetivo, int duracao) throws Exception {
@@ -56,7 +51,7 @@ public class GerenciadorProjeto {
 		if (dataInicio.length() != 10) {
 			return false;
 		}
-		if (dataInicio.charAt(3) != '/' || dataInicio.charAt(6) != '/') {
+		if (dataInicio.charAt(2) != '/' || dataInicio.charAt(5) != '/') {
 			return false;
 		}
 		LocalDate data = this.converteData(dataInicio);
@@ -152,16 +147,83 @@ public class GerenciadorProjeto {
 		return codigoStr;
 
 	}
-
+	
+	public String getCodigoProjeto(String nome) {
+		for (Projeto p: projetos) {
+			if (p.getNome().equalsIgnoreCase(nome))
+				return p.getCodigo();
+		}
+		return null;
+	}
+	
+	public String getInfoProjeto(String codigo, String atributo) throws Exception {
+		Projeto p = buscaProjeto(codigo);
+		if (atributo.equalsIgnoreCase("nome")) {
+			return p.getNome();
+		} else if (atributo.equalsIgnoreCase("objetivo")) {
+			return p.getObjetivo();
+		} else if (atributo.equalsIgnoreCase("data de inicio")) {
+			LocalDateStringConverter conversor = new LocalDateStringConverter();
+			return conversor.toString(p.getDataInicio());
+		} else if (atributo.equalsIgnoreCase("duracao")) {
+			return "" + p.getDuracao();
+		} else if (atributo.equalsIgnoreCase("producao tecnica")) {
+			if (p instanceof PET) {
+				PET p2 = (PET) p;
+				return "" + p2.getProducaoTecnica();
+			} else if (p instanceof PED) {
+				PED p2 = (PED) p;
+				return "" + p2.getProducaoTecnica();
+			}
+		} else if (atributo.equalsIgnoreCase("producao academica")) {
+			if (p instanceof PET) {
+				PET p2 = (PET) p;
+				return "" + p2.getProducaoAcademica();
+			} else if (p instanceof PED) {
+				PED p2 = (PED) p;
+				return "" + p2.getProducaoAcademica();
+			} else if (p instanceof Monitoria) {
+				throw new Exception("Erro na consulta de projeto: Monitoria nao possui Producao academica");
+			}
+		}
+		throw new Exception("Erro na consulta de projeto: Atributo nulo ou invalido");
+	}
+	
+	public void editaProjeto(String codigo, String atributo, String valor) throws Exception {
+		Projeto p = buscaProjeto(codigo);
+		if (atributo.equalsIgnoreCase("nome")) {
+			if (valor == null || valor.trim().equals(""))
+				throw new Exception("Erro na atualizacao de projeto: Nome nulo ou vazio");
+			p.setNome(valor);
+		} else if (atributo.equalsIgnoreCase("objetivo")) {
+			if (valor == null || valor.trim().equals(""))
+				throw new Exception("Erro na atualizacao de projeto: Objetivo nulo ou vazio");
+			p.setObjetivo(valor);
+		} else if (atributo.equalsIgnoreCase("duracao")) {
+			if (valor == null || valor.trim().equals(""))
+				throw new Exception("Erro na atualizacao de projeto: Duracao nula ou vazia");
+			p.setDuracao(Integer.parseInt(valor));
+		} else if (atributo.equalsIgnoreCase("data de inicio")) {
+			if (validaData(valor) == false)
+				throw new Exception("Erro na atualizacao de projeto: Formato de data invalido");
+			p.setDataInicio(converteData(valor));
+		}
+	}
+	
+	public void removeProjeto(String codigo) throws Exception {
+		Projeto p = buscaProjeto(codigo);
+		projetos.remove(p);
+	}
+	
 	private HashSet<Producao> getColecaoProd(int prodTecnica, int prodAcademica, int patentes) throws Exception {
 		if (prodTecnica < 0) {
-			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+			throw new Exception("Erro no cadastro de projeto: Numero de producoes tecnicas invalido");
 		}
 		if (prodAcademica < 0) {
-			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+			throw new Exception("Erro no cadastro de projeto: Numero de producoes academicas invalido");
 		}
 		if (patentes < 0) {
-			throw new Exception("Erro no cadastro de producao: Quantidade invalida");
+			throw new Exception("Erro no cadastro de projeto: Numero de patentes invalido");
 		}
 		HashSet<Producao> colecaoProd = new HashSet<>();
 		FactoryProducao factoryProd = new FactoryProducao();

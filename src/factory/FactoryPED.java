@@ -13,7 +13,7 @@ public class FactoryPED {
 	public PED criaPED(String nome, String categoria, HashSet<Producao> colecaoProd, String objetivo,
 			LocalDate dataInicio, int duracao, String codigo) throws Exception {
 		String categoriaCapsLock = categoria.toUpperCase();
-		if (categoria.equals("PIBIC") || categoria.equals("PIBIT") || categoria.equals("PIVIC")) {
+		if (categoria.equals("PIBIC") || categoria.equals("PIBITI") || categoria.equals("PIVIC")) {
 			PED progInst = new ProgramasInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,
 					categoriaCapsLock);
 			return progInst;
@@ -21,7 +21,7 @@ public class FactoryPED {
 			PED coop = new CooperacaoEmpresas(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
 			return coop;
 		}
-		throw new Exception("Erro no cadastro de projeto: Tipo invalido");
+		throw new Exception("Erro no cadastro de projeto: Categoria invalida");
 	}
 
 }
