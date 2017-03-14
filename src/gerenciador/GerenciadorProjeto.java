@@ -55,16 +55,10 @@ public class GerenciadorProjeto {
 			return false;
 		}
 		try {
-			LocalDate data = this.converteData(dataInicio);
+			this.converteData(dataInicio);
 		} catch(Exception e) {
 			return false;
 		}
-	/*	if (data.getDayOfMonth() > data.lengthOfMonth() || data.getDayOfMonth() < 1) {
-			return false;
-		}
-		if (data.getMonthValue() > 12 || data.getMonthValue() < 1) {
-			return false;
-		}*/
 		return true;
 	}
 

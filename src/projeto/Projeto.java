@@ -2,7 +2,7 @@ package projeto;
 
 import java.time.*;
 
-public class Projeto {
+public abstract class Projeto {
 
 	private String nome;
 	private String objetivo;

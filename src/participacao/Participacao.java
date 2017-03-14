@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import pessoa.Pessoa;
 import projeto.Projeto;
 
-public class Participacao {
+public abstract class Participacao {
 
 	protected Pessoa pessoa;
 	protected Projeto projeto;

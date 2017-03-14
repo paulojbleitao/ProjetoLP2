@@ -1,7 +1,13 @@
-package participacao;
+package factory;
 
-import java.time.LocalDate;
+import java.time.*;
 
+import participacao.Graduando;
+import participacao.Participacao;
+import participacao.Professor;
+import participacao.Profissional;
+import participacao.TipoGraduando;
+import participacao.TipoProfissional;
 import pessoa.Pessoa;
 import projeto.Projeto;
 

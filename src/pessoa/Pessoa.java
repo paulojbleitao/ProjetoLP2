@@ -1,5 +1,7 @@
 package pessoa;
 
+import java.util.HashSet;
+
 public class Pessoa {
 
 	private String nome;
