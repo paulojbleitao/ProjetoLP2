@@ -2,6 +2,9 @@ package projeto;
 
 import java.time.LocalDate;
 
+import participacao.Participacao;
+import participacao.Professor;
+
 public class Monitoria extends Projeto {
 
 	private String disciplina;
@@ -39,6 +42,16 @@ public class Monitoria extends Projeto {
 
 	public void setRendimento(int rendimento) {
 		this.rendimento = rendimento;
+	}
+	
+	public boolean contemProfessor() {
+		boolean temProfessor = false;
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof Professor) {
+				temProfessor = true;
+			}
+		}
+		return temProfessor;
 	}
 
 }

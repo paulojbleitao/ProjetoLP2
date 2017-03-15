@@ -1,13 +1,17 @@
 package facade;
 
 import easyaccept.EasyAccept;
+import gerenciador.GerenciadorParticipacao;
 import gerenciador.GerenciadorPessoa;
 import gerenciador.GerenciadorProjeto;
+import pessoa.Pessoa;
+import projeto.Projeto;
 
 public class Facade {
 	
 	private GerenciadorPessoa gPessoa;
 	private GerenciadorProjeto gProjeto;
+	private GerenciadorParticipacao gParticipacao;
 	
 	public static void main(String[] args) {
 	    args = new String[] {"facade.Facade", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt",
@@ -73,6 +77,22 @@ public class Facade {
 	
 	public void removeProjeto(String codigo) throws Exception {
 		gProjeto.removeProjeto(codigo);
+	}
+	
+	public void adicionaGraduando(String cpfPessoa, String codigoProjeto, double valorHora, int qntHoras) throws Exception {
+		private Pessoa pessoa;
+		private Projeto projeto;
+		try {
+			pessoa = gPessoa.buscaPessoa(cpfPessoa);
+		} catch (Exception e) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Pessoa nao encontrada");
+		}
+		try {
+			projeto = gProjeto.buscaProjeto(codigoProjeto);
+			
+		} catch  (Exception e) {
+			throw new Exception("Erro na obtencao de codigo de projeto: Projeto nao encontrado");
+		}
 	}
 	
 }

@@ -1,12 +1,17 @@
 package pessoa;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+
+import participacao.Participacao;
+import projeto.Projeto;
 
 public class Pessoa {
 
 	private String nome;
 	private String cpf;
 	private String email;
+	private ArrayList<Participacao> participacoes;
 
 	public Pessoa(String nome, String cpf, String email) throws Exception {
 		this.nome = nome;
@@ -32,6 +37,19 @@ public class Pessoa {
 
 	public void setEmail(String email) throws Exception {
 		this.email = email;
+	}
+
+	public Participacao buscaParticipacao(Projeto projeto) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getProjeto().equals(projeto)) {
+				return participacao;
+			}
+		}
+		return null;
+	}
+	
+	public void addParticipacao (Participacao participacao) {
+		participacoes.add(participacao);
 	}
 
 	@Override

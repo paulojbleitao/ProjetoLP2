@@ -1,6 +1,10 @@
 package projeto;
 
 import java.time.*;
+import java.util.ArrayList;
+
+import participacao.Participacao;
+import pessoa.Pessoa;
 
 public abstract class Projeto {
 
@@ -9,6 +13,7 @@ public abstract class Projeto {
 	private LocalDate dataInicio;
 	private int duracao;
 	private String codigo;
+	protected ArrayList<Participacao> participacoes;
 
 	public Projeto(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo) throws Exception {
 		this.nome = nome;
@@ -16,6 +21,7 @@ public abstract class Projeto {
 		this.dataInicio = dataInicio;
 		this.duracao = duracao;
 		this.codigo = codigo;
+		participacoes = new ArrayList<>();
 	}
 
 	public String getNome() {
@@ -56,6 +62,19 @@ public abstract class Projeto {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Participacao buscaParticipacao(Pessoa pessoa) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getProjeto().equals(pessoa)) {
+				return participacao;
+			}
+		}
+		return null;
+	}
+	
+	public void addParticipacao (Participacao participacao) {
+		participacoes.add(participacao);
 	}
 
 	@Override
