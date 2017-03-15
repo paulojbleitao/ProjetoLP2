@@ -1,7 +1,11 @@
 package pessoa;
 
 import java.util.ArrayList;
+
+import participacao.Graduando;
 import participacao.Participacao;
+import participacao.Professor;
+import projeto.Monitoria;
 import projeto.Projeto;
 
 public class Pessoa {
@@ -10,11 +14,14 @@ public class Pessoa {
 	private String cpf;
 	private String email;
 	private ArrayList<Participacao> participacoes;
+	private double pontos;
 
 	public Pessoa(String nome, String cpf, String email) throws Exception {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		this.participacoes = new ArrayList<>();
+		this.pontos = 0.0;
 	}
 
 	public String getNome() {
@@ -48,6 +55,19 @@ public class Pessoa {
 	
 	public void addParticipacao (Participacao participacao) {
 		participacoes.add(participacao);
+	}
+	
+	public void calculaPontos() {
+		for (Participacao p: participacoes) {
+			if (p instanceof Professor) {
+				int temp = 4 * (p.getDuracao() / 12);
+				if (!(p.getProjeto() instanceof Monitoria))
+					temp += p.getProjeto().getQntdGraduandos();
+				pontos += temp;
+			} else if (p instanceof Graduando) {
+				// TODO aaaaaaaaaaaaaaaaaaaaaa
+			}
+		}
 	}
 
 	@Override
