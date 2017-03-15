@@ -13,7 +13,7 @@ public class ProgramasInst extends PED {
 			HashSet<Producao> colecaoProd, String tipo) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
 		this.tipo = tipo;
-		//tratamento do tipo
+		// tratamento do tipo
 	}
 
 	public String getTipo() {

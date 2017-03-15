@@ -3,7 +3,9 @@ package projeto;
 import java.time.*;
 import java.util.ArrayList;
 
+import participacao.Graduando;
 import participacao.Participacao;
+import participacao.Professor;
 import pessoa.Pessoa;
 
 public abstract class Projeto {
@@ -63,7 +65,7 @@ public abstract class Projeto {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
+
 	public Participacao buscaParticipacao(Pessoa pessoa) {
 		for (Participacao participacao : participacoes) {
 			if (participacao.getProjeto().equals(pessoa)) {
@@ -72,8 +74,43 @@ public abstract class Projeto {
 		}
 		return null;
 	}
-	
-	public void addParticipacao (Participacao participacao) {
+
+	public boolean contemProfessor() {
+		boolean temProfessor = false;
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof Professor) {
+				temProfessor = true;
+			}
+		}
+		return temProfessor;
+	}
+
+	public boolean contemCoordenador() {
+		boolean temCoordenador = false;
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof Professor) {
+				if (((Professor) participacao).isCoordenador()) {
+					temCoordenador = true;
+				}
+			}
+		}
+		return temCoordenador;
+	}
+
+	public boolean contemGraduando() {
+		boolean temGraduando = false;
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof Graduando) {
+				temGraduando = true;
+			}
+		}
+		return temGraduando;
+	}
+
+	public void addParticipacao(Participacao participacao) throws Exception {
+		if (buscaParticipacao(participacao.getPessoa()) != null) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Aluno ja esta cadastrado nesse projeto");
+		}
 		participacoes.add(participacao);
 	}
 

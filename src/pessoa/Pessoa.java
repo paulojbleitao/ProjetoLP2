@@ -1,8 +1,6 @@
 package pessoa;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-
 import participacao.Participacao;
 import projeto.Projeto;
 

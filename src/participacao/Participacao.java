@@ -52,7 +52,6 @@ public abstract class Participacao {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataInicio == null) ? 0 : dataInicio.hashCode());
 		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((projeto == null) ? 0 : projeto.hashCode());
 		return result;
@@ -64,14 +63,9 @@ public abstract class Participacao {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Participacao))
 			return false;
 		Participacao other = (Participacao) obj;
-		if (dataInicio == null) {
-			if (other.dataInicio != null)
-				return false;
-		} else if (!dataInicio.equals(other.dataInicio))
-			return false;
 		if (pessoa == null) {
 			if (other.pessoa != null)
 				return false;

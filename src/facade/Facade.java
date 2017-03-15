@@ -80,8 +80,8 @@ public class Facade {
 	}
 	
 	public void adicionaGraduando(String cpfPessoa, String codigoProjeto, double valorHora, int qntHoras) throws Exception {
-		private Pessoa pessoa;
-		private Projeto projeto;
+		Pessoa pessoa;
+		Projeto projeto;
 		try {
 			pessoa = gPessoa.buscaPessoa(cpfPessoa);
 		} catch (Exception e) {
