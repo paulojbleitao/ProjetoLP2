@@ -1,3 +1,4 @@
+
 package projeto;
 
 import java.time.*;
@@ -105,6 +106,15 @@ public abstract class Projeto {
 			}
 		}
 		return temGraduando;
+	}
+	
+	public int getQntdGraduandos() {
+		int qntd = 0;
+		for (Participacao participacao: participacoes) {
+			if (participacao instanceof Graduando)
+				qntd++;
+		}
+		return qntd;
 	}
 
 	public void addParticipacao(Participacao participacao) throws Exception {

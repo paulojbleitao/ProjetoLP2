@@ -14,12 +14,6 @@ public class GerenciadorParticipacao {
 	private FactoryParticipacao factoryParticipacao;
 
 	public void associaGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
-		if (qntHoras <= 0) {
-			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
-		}
-		if (valorHora <= 0) {
-			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
-		}
 		if (projeto instanceof PED) {
 			if (projeto.contemGraduando()) {
 				throw new Exception(

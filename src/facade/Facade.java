@@ -79,7 +79,7 @@ public class Facade {
 		gProjeto.removeProjeto(codigo);
 	}
 	
-	public void adicionaGraduando(String cpfPessoa, String codigoProjeto, double valorHora, int qntHoras) throws Exception {
+	public void associaGraduando(String cpfPessoa, String codigoProjeto, double valorHora, int qntHoras) throws Exception {
 		Pessoa pessoa;
 		Projeto projeto;
 		try {
@@ -93,6 +93,37 @@ public class Facade {
 		} catch  (Exception e) {
 			throw new Exception("Erro na obtencao de codigo de projeto: Projeto nao encontrado");
 		}
+		
+		if (qntHoras <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
+		}
+		
+		if (valorHora <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+			}
+	}
+	
+	public void removeParticipacao(String cpfPessoa, String codigoProjeto) throws Exception{
+		Pessoa pessoa;
+		Projeto projeto;
+		try{
+			pessoa = gPessoa.buscaPessoa(cpfPessoa);
+		
+		}catch (Exception e) {
+			throw new Exception("Erro na remocao de participacao: Pessoa nao encontrada");
+		}
+		try{
+			projeto = gProjeto.buscaProjeto(codigoProjeto);
+			
+		}catch (Exception e) {
+			throw new Exception("Erro na remocao de participacao: Projeto nao encontrado");
+		}
+		
+		if (projeto.buscaParticipacao(pessoa) == null) {
+			throw new Exception("Erro na remocao de participacao: Pessoa nao possui participacao no projeto indicado");
+		}
+		
+		
 	}
 	
 }
