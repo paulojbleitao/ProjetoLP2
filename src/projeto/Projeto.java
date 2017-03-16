@@ -107,10 +107,10 @@ public abstract class Projeto {
 		}
 		return temGraduando;
 	}
-	
+
 	public int getQntdGraduandos() {
 		int qntd = 0;
-		for (Participacao participacao: participacoes) {
+		for (Participacao participacao : participacoes) {
 			if (participacao instanceof Graduando)
 				qntd++;
 		}
@@ -122,6 +122,15 @@ public abstract class Projeto {
 			throw new Exception("Erro na associacao de pessoa a projeto: Aluno ja esta cadastrado nesse projeto");
 		}
 		participacoes.add(participacao);
+	}
+
+	public void removeParticipacao(String cpfPessoa) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getPessoa().getCpf().equals(cpfPessoa)) {
+				participacoes.remove(participacao);
+				return;
+			}			
+		}
 	}
 
 	@Override

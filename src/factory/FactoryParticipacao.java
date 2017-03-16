@@ -30,7 +30,7 @@ public class FactoryParticipacao {
 			return graduando;
 		}
 
-		throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+		throw new Exception("Erro na associacao de pessoa a projeto: Tipo de graduando invalido");
 
 	}
 
@@ -56,7 +56,7 @@ public class FactoryParticipacao {
 					TipoProfissional.PESQUISADOR);
 			return profissional;
 		}
-		throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+		throw new Exception("Erro na associacao de pessoa a projeto: Tipo de profissional invalido");
 	}
 
 }
