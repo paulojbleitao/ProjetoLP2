@@ -4,6 +4,7 @@ import factory.FactoryParticipacao;
 import participacao.Participacao;
 import pessoa.Pessoa;
 import projeto.CooperacaoEmpresas;
+import projeto.Extensao;
 import projeto.Monitoria;
 import projeto.PED;
 import projeto.PET;
@@ -22,7 +23,21 @@ public class GerenciadorParticipacao {
 
 		}
 		Participacao participacao = factoryParticipacao.criaGraduando(pessoa, projeto, projeto.getDataInicio(),
-				projeto.getDuracao(), qntHoras, valorHora, "GRADUANDO");
+				projeto.getDuracao(), qntHoras, valorHora);
+		pessoa.addParticipacao(participacao);
+		projeto.addParticipacao(participacao);
+	}
+
+	public void associaPosGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
+		if (projeto instanceof PED) {
+			if (projeto.contemGraduando()) {
+				throw new Exception(
+						"Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando");
+			}
+
+		}
+		Participacao participacao = factoryParticipacao.criaPosGraduando(pessoa, projeto, projeto.getDataInicio(),
+				projeto.getDuracao(), qntHoras, valorHora);
 		pessoa.addParticipacao(participacao);
 		projeto.addParticipacao(participacao);
 	}
@@ -45,6 +60,12 @@ public class GerenciadorParticipacao {
 			if (valorHora != 0) {
 				throw new Exception(
 						"Erro na associacao de pessoa a projeto: Valor da hora de um professor da monitoria deve ser zero");
+			}
+		}
+		if (projeto instanceof Extensao) {
+			if (projeto.contemCoordenador()) {
+				throw new Exception(
+						"Erro na associacao de pessoa a projeto: Extensao nao pode ter mais de um coordenador");
 			}
 		}
 		if (projeto instanceof PET) {

@@ -2,7 +2,7 @@ package pessoa;
 
 import java.util.ArrayList;
 
-import participacao.Graduando;
+import participacao.PosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 import projeto.Monitoria;
@@ -64,7 +64,7 @@ public class Pessoa {
 				if (!(p.getProjeto() instanceof Monitoria))
 					temp += p.getProjeto().getQntdGraduandos();
 				pontos += temp;
-			} else if (p instanceof Graduando) {
+			} else if (p instanceof PosGraduando) {
 				// TODO aaaaaaaaaaaaaaaaaaaaaa
 			}
 		}

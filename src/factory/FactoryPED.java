@@ -6,18 +6,27 @@ import java.util.HashSet;
 import producao.Producao;
 import projeto.CooperacaoEmpresas;
 import projeto.PED;
-import projeto.ProgramasInst;
+import projeto.ProgramaInst;
+import projeto.TipoProgramaInst;
 
 public class FactoryPED {
 
 	public PED criaPED(String nome, String categoria, HashSet<Producao> colecaoProd, String objetivo,
 			LocalDate dataInicio, int duracao, String codigo) throws Exception {
-		String categoriaCapsLock = categoria.toUpperCase();
-		if (categoria.equals("PIBIC") || categoria.equals("PIBITI") || categoria.equals("PIVIC")) {
-			PED progInst = new ProgramasInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,
-					categoriaCapsLock);
+		String categoriaCL = categoria.toUpperCase();
+		if (categoriaCL.equals("PIBIC")) {
+			PED progInst = new ProgramaInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,
+					TipoProgramaInst.PIBIC);
 			return progInst;
-		} else if (categoria.equals("COOP")) {
+		} else if (categoriaCL.equals("PIBITI")) {
+			PED progInst = new ProgramaInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,
+					TipoProgramaInst.PIBITI);
+			return progInst;
+		} else if (categoriaCL.equals("PIVIC")) {
+			PED progInst = new ProgramaInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,
+					TipoProgramaInst.PIVIC);
+			return progInst;
+		} else if (categoriaCL.equals("COOP")) {
 			PED coop = new CooperacaoEmpresas(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
 			return coop;
 		}
