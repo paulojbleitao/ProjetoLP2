@@ -3,8 +3,9 @@ package projeto;
 
 import java.time.*;
 import java.util.ArrayList;
+import java.util.List;
 
-import participacao.Graduando;
+import participacao.PosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 import pessoa.Pessoa;
@@ -16,7 +17,7 @@ public abstract class Projeto {
 	private LocalDate dataInicio;
 	private int duracao;
 	private String codigo;
-	protected ArrayList<Participacao> participacoes;
+	protected List<Participacao> participacoes;
 
 	public Projeto(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo) throws Exception {
 		this.nome = nome;
@@ -101,17 +102,17 @@ public abstract class Projeto {
 	public boolean contemGraduando() {
 		boolean temGraduando = false;
 		for (Participacao participacao : participacoes) {
-			if (participacao instanceof Graduando) {
+			if (participacao instanceof PosGraduando) {
 				temGraduando = true;
 			}
 		}
 		return temGraduando;
 	}
-	
+
 	public int getQntdGraduandos() {
 		int qntd = 0;
-		for (Participacao participacao: participacoes) {
-			if (participacao instanceof Graduando)
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof PosGraduando)
 				qntd++;
 		}
 		return qntd;
@@ -122,6 +123,15 @@ public abstract class Projeto {
 			throw new Exception("Erro na associacao de pessoa a projeto: Aluno ja esta cadastrado nesse projeto");
 		}
 		participacoes.add(participacao);
+	}
+
+	public void removeParticipacao(String cpfPessoa) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getPessoa().getCpf().equals(cpfPessoa)) {
+				participacoes.remove(participacao);
+				return;
+			}			
+		}
 	}
 
 	@Override

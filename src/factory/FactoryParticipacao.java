@@ -2,11 +2,11 @@ package factory;
 
 import java.time.*;
 
+import participacao.PosGraduando;
 import participacao.Graduando;
 import participacao.Participacao;
 import participacao.Professor;
 import participacao.Profissional;
-import participacao.TipoGraduando;
 import participacao.TipoProfissional;
 import pessoa.Pessoa;
 import projeto.Projeto;
@@ -14,24 +14,15 @@ import projeto.Projeto;
 public class FactoryParticipacao {
 
 	public Participacao criaGraduando(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao,
-			int horasSemanais, double valorHora, String tipoGraduando) throws Exception {
-		Participacao graduando;
-		if (tipoGraduando.equalsIgnoreCase("GRADUANDO")) {
-			graduando = new Graduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora,
-					TipoGraduando.GRADUANDO);
-			return graduando;
-		} else if (tipoGraduando.equalsIgnoreCase("POSGRADUANDO_MESTRADO")) {
-			graduando = new Graduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora,
-					TipoGraduando.POSGRADUANDO_MESTRADO);
-			return graduando;
-		} else if (tipoGraduando.equalsIgnoreCase("POSGRADUANDO_DOUTORADO")) {
-			graduando = new Graduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora,
-					TipoGraduando.POSGRADUANDO_DOUTORADO);
-			return graduando;
-		}
+			int horasSemanais, double valorHora) {
+		Participacao graduando = new Graduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora);
+		return graduando;
+	}
 
-		throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
-
+	public Participacao criaPosGraduando(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao,
+			int horasSemanais, double valorHora) throws Exception {
+		Participacao posGraduando = new PosGraduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora);
+		return posGraduando;
 	}
 
 	public Participacao criaProfessor(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao,
@@ -56,7 +47,7 @@ public class FactoryParticipacao {
 					TipoProfissional.PESQUISADOR);
 			return profissional;
 		}
-		throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+		throw new Exception("Erro na associacao de pessoa a projeto: Tipo de profissional invalido");
 	}
 
 }
