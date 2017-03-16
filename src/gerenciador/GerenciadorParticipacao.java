@@ -7,12 +7,17 @@ import projeto.CooperacaoEmpresas;
 import projeto.Monitoria;
 import projeto.PED;
 import projeto.PET;
+import projeto.ProgramasInst;
 import projeto.Projeto;
 
 public class GerenciadorParticipacao {
 
 	private FactoryParticipacao factoryParticipacao;
 
+	public GerenciadorParticipacao() {
+		factoryParticipacao = new FactoryParticipacao();
+	}
+	
 	public void associaGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
 		if (projeto instanceof PED) {
 			if (projeto.contemGraduando()) {
@@ -32,8 +37,13 @@ public class GerenciadorParticipacao {
 		if (qntHoras <= 0) {
 			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
 		}
-		if (!(projeto instanceof Monitoria)) {
+		if (!(projeto instanceof Monitoria) && !(projeto instanceof ProgramasInst)) {
 			if (valorHora <= 0) {
+				throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+			}
+		}
+		if (projeto instanceof Monitoria) {
+			if (valorHora < 0) {
 				throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
 			}
 		}

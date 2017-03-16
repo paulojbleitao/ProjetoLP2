@@ -15,13 +15,15 @@ public class Facade {
 	
 	public static void main(String[] args) {
 	    args = new String[] {"facade.Facade", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt",
-	    		"acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt"};
+	    		"acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", 
+	    		"acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt"};
 	    EasyAccept.main(args);
 	}
 	
 	public Facade() {
 		gPessoa = new GerenciadorPessoa();
 		gProjeto = new GerenciadorProjeto();
+		gParticipacao = new GerenciadorParticipacao();
 	}
 	
 	public void iniciaSistema() {}
@@ -101,6 +103,58 @@ public class Facade {
 		if (valorHora <= 0) {
 			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
 			}
+		gParticipacao.associaGraduando(pessoa, projeto, valorHora, qntHoras);
+	}
+	
+	public void associaProfessor(String cpfPessoa, String codigoProjeto, boolean coordenador, double valorHora, int qntHoras) throws Exception {
+		Pessoa pessoa;
+		Projeto projeto;
+		try {
+			pessoa = gPessoa.buscaPessoa(cpfPessoa);
+		} catch (Exception e) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Pessoa nao encontrada");
+		}
+		try {
+			projeto = gProjeto.buscaProjeto(codigoProjeto);
+			
+		} catch  (Exception e) {
+			throw new Exception("Erro na obtencao de codigo de projeto: Projeto nao encontrado");
+		}
+		
+		if (qntHoras <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
+		}
+		
+		if (valorHora <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+			}
+		gParticipacao.associaProfessor(pessoa, projeto, coordenador, valorHora, qntHoras);
+	}
+	
+	public void associaProfissional(String cpfPessoa, String codigoProjeto, String cargo, double valorHora, int qntHoras) throws Exception {
+		Pessoa pessoa;
+		Projeto projeto;
+		try {
+			pessoa = gPessoa.buscaPessoa(cpfPessoa);
+		} catch (Exception e) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Pessoa nao encontrada");
+		}
+		try {
+			projeto = gProjeto.buscaProjeto(codigoProjeto);
+			
+		} catch  (Exception e) {
+			throw new Exception("Erro na obtencao de codigo de projeto: Projeto nao encontrado");
+		}
+		
+		if (qntHoras <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
+		}
+		
+		if (valorHora <= 0) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+			}
+		gParticipacao.associaProfissional(pessoa, projeto, cargo, valorHora, qntHoras);
+		
 	}
 	
 	public void removeParticipacao(String cpfPessoa, String codigoProjeto) throws Exception{

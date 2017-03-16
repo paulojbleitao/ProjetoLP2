@@ -52,13 +52,37 @@ public class Pessoa {
 		}
 		return null;
 	}
-	
-	public void addParticipacao (Participacao participacao) {
+
+	public void addParticipacao(Participacao participacao) {
 		participacoes.add(participacao);
 	}
-	
+
+	public String participacoesDePessoa() {
+		String resposta = "";
+		for (Participacao participacao : participacoes) {
+			if (resposta.equals("")) {
+				resposta += participacao.getProjeto().getNome();
+			} else {
+				resposta += ", " + participacao.getProjeto().getNome();
+			}
+			
+		}
+		return resposta;
+
+		/*StringBuilder resposta = new StringBuilder();
+		for (Participacao participacao : participacoes) {
+			resposta.append(participacao.getProjeto().getNome() + ", ");
+		}
+		resposta.deleteCharAt(resposta.length() - 1);
+		return resposta.toString();
+		
+		// resposta = []
+		// respota = ["primeiro projeto, ", "swegundo projeto, "]; 
+		resposta.toString = primeiro projeto, segundo projeto,*/  
+	}
+
 	public void calculaPontos() {
-		for (Participacao p: participacoes) {
+		for (Participacao p : participacoes) {
 			if (p instanceof Professor) {
 				int temp = 4 * (p.getDuracao() / 12);
 				if (!(p.getProjeto() instanceof Monitoria))

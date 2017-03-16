@@ -96,11 +96,20 @@ public class GerenciadorPessoa {
 	
 	public String getInfoPessoa(String cpf, String atributo) throws Exception {
 		Pessoa p = this.buscaPessoa(cpf);
-		if (atributo.equalsIgnoreCase("nome"))
+		switch (atributo.toUpperCase()) {
+		case "NOME":
 			return p.getNome();
-		else if (atributo.equalsIgnoreCase("email"))
+			
+		case "EMAIL":
 			return p.getEmail();
-		return null;
+			
+		case "PARTICIPACOES":
+			return p.participacoesDePessoa();
+			
+		default:
+			break;
+		}
+		throw new Exception("Atributo invalido");
 	}
 	
 	public void removePessoa(String cpf) throws Exception {
