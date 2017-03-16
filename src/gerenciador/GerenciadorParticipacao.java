@@ -8,7 +8,7 @@ import projeto.Extensao;
 import projeto.Monitoria;
 import projeto.PED;
 import projeto.PET;
-import projeto.ProgramasInst;
+import projeto.ProgramaInst;
 import projeto.Projeto;
 
 public class GerenciadorParticipacao {
@@ -52,7 +52,7 @@ public class GerenciadorParticipacao {
 		if (qntHoras <= 0) {
 			throw new Exception("Erro na associacao de pessoa a projeto: Quantidade de horas invalida");
 		}
-		if (!(projeto instanceof Monitoria) && !(projeto instanceof ProgramasInst)) {
+		if (!(projeto instanceof Monitoria) && !(projeto instanceof ProgramaInst)) {
 			if (valorHora <= 0) {
 				throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
 			}

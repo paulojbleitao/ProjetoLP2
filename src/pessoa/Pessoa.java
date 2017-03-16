@@ -2,10 +2,13 @@ package pessoa;
 
 import java.util.ArrayList;
 
-import participacao.PosGraduando;
+import participacao.Graduando;
 import participacao.Participacao;
 import participacao.Professor;
+import participacao.Profissional;
+import participacao.TipoProfissional;
 import projeto.Monitoria;
+import projeto.PED;
 import projeto.Projeto;
 
 public class Pessoa {
@@ -81,17 +84,45 @@ public class Pessoa {
 		resposta.toString = primeiro projeto, segundo projeto,*/  
 	}
 
-	public void calculaPontos() {
-		for (Participacao p : participacoes) {
+	public double calculaPontos() {
+		int duracaoMonitoria = 0;
+		int duracaoProjetos = 0;
+		for (Participacao p: this.participacoes) {
 			if (p instanceof Professor) {
 				int temp = 4 * (p.getDuracao() / 12);
 				if (!(p.getProjeto() instanceof Monitoria))
 					temp += p.getProjeto().getQntdGraduandos();
+				this.pontos += temp;
+			} else if (p instanceof Graduando) {
+				double temp = 0.0;
+				if (p.getProjeto() instanceof Monitoria) {
+					duracaoMonitoria += p.getDuracao();
+					if (duracaoMonitoria >= 24)
+						temp += 6;
+					else
+						temp += 1.5 * (p.getDuracao() / 6);
+				} else {
+					duracaoProjetos += p.getDuracao();
+					if (duracaoProjetos >= 24)
+						temp += 8;
+					else
+						temp += 2 * (p.getDuracao() / 6);
+				}
+				this.pontos += temp;
+			} else if (p instanceof Profissional) {
+				int temp = 0;
+				if (p.getProjeto() instanceof PED) {
+					if (((Profissional) p).getTipoProfissional() == TipoProfissional.DESENVOLVEDOR)
+						temp += 5 * (p.getDuracao() / 12);
+					else if (((Profissional) p).getTipoProfissional() == TipoProfissional.PESQUISADOR)
+						temp += 6 * (p.getDuracao() / 12);
+					else if (((Profissional) p).getTipoProfissional() == TipoProfissional.GERENTE)
+						temp += 9 * (p.getDuracao() / 12);
+				}
 				pontos += temp;
-			} else if (p instanceof PosGraduando) {
-				// TODO aaaaaaaaaaaaaaaaaaaaaa
 			}
 		}
+		return this.pontos;
 	}
 
 	@Override
