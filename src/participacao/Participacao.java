@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import pessoa.Pessoa;
 import projeto.Projeto;
 
-public abstract class Participacao {
+public abstract class Participacao implements Comparable<Participacao> {
 
 	protected Pessoa pessoa;
 	protected Projeto projeto;
@@ -48,6 +48,11 @@ public abstract class Participacao {
 		return valorHora;
 	}
 
+	@Override
+	public int compareTo(Participacao p) {
+		return this.pessoa.getNome().compareTo(p.getPessoa().getNome());
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

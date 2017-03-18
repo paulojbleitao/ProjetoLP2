@@ -59,6 +59,16 @@ public class Pessoa {
 	public void addParticipacao(Participacao participacao) {
 		participacoes.add(participacao);
 	}
+	
+
+	public void removeParticipacao(String codigo) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getProjeto().getCodigo().equals(codigo)) {
+				participacoes.remove(participacao);
+				return;
+			}			
+		} 
+	}
 
 	public String participacoesDePessoa() {
 		String resposta = "";
@@ -149,4 +159,5 @@ public class Pessoa {
 			return false;
 		return true;
 	}
+
 }

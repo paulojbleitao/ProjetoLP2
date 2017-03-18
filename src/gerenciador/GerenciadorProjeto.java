@@ -156,33 +156,41 @@ public class GerenciadorProjeto {
 	
 	public String getInfoProjeto(String codigo, String atributo) throws Exception {
 		Projeto p = buscaProjeto(codigo);
-		if (atributo.equalsIgnoreCase("nome")) {
-			return p.getNome();
-		} else if (atributo.equalsIgnoreCase("objetivo")) {
-			return p.getObjetivo();
-		} else if (atributo.equalsIgnoreCase("data de inicio")) {
-			LocalDateStringConverter conversor = new LocalDateStringConverter();
-			return conversor.toString(p.getDataInicio());
-		} else if (atributo.equalsIgnoreCase("duracao")) {
-			return "" + p.getDuracao();
-		} else if (atributo.equalsIgnoreCase("producao tecnica")) {
-			if (p instanceof PET) {
-				PET p2 = (PET) p;
-				return "" + p2.getProducaoTecnica();
-			} else if (p instanceof PED) {
-				PED p2 = (PED) p;
-				return "" + p2.getProducaoTecnica();
-			}
-		} else if (atributo.equalsIgnoreCase("producao academica")) {
-			if (p instanceof PET) {
-				PET p2 = (PET) p;
-				return "" + p2.getProducaoAcademica();
-			} else if (p instanceof PED) {
-				PED p2 = (PED) p;
-				return "" + p2.getProducaoAcademica();
-			} else if (p instanceof Monitoria) {
-				throw new Exception("Erro na consulta de projeto: Monitoria nao possui Producao academica");
-			}
+		
+		switch(atributo.toUpperCase()) {
+			case "NOME":
+				return p.getNome();
+			case "OBJETIVO":
+				return p.getObjetivo();
+			case "DATA DE INICIO":
+				LocalDateStringConverter conversor = new LocalDateStringConverter();
+				return conversor.toString(p.getDataInicio());
+			case "DURACAO":
+				return "" + p.getDuracao();
+			case "PRODUCAO TECNICA":
+				if (p instanceof PET) {
+					PET p2 = (PET) p;
+					return "" + p2.getProducaoTecnica();
+				} else if (p instanceof PED) {
+					PED p2 = (PED) p;
+					return "" + p2.getProducaoTecnica();
+				}
+				break;
+			case "PRODUCAO ACADEMICA":
+				if (p instanceof PET) {
+					PET p2 = (PET) p;
+					return "" + p2.getProducaoAcademica();
+				} else if (p instanceof PED) {
+					PED p2 = (PED) p;
+					return "" + p2.getProducaoAcademica();
+				} else if (p instanceof Monitoria) {
+					throw new Exception("Erro na consulta de projeto: Monitoria nao possui Producao academica");
+				}
+				break;
+			case "PARTICIPACOES":
+				return p.participacoesDeProjeto();
+			default:
+				break;
 		}
 		throw new Exception("Erro na consulta de projeto: Atributo nulo ou invalido");
 	}

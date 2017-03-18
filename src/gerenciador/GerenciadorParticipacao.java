@@ -18,14 +18,13 @@ public class GerenciadorParticipacao {
 	public GerenciadorParticipacao() {
 		factoryParticipacao = new FactoryParticipacao();
 	}
-	
-	public void associaGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
-		if (projeto instanceof PED) {
-			if (projeto.contemGraduando()) {
-				throw new Exception(
-						"Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando");
-			}
 
+	public void associaGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
+		if (projeto instanceof ProgramaInst && projeto.contemGraduando()) {
+			throw new Exception(
+					"Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando");
+		} else if (projeto.contem(pessoa)) {
+			throw new Exception("Erro na associacao de pessoa a projeto: Aluno ja esta cadastrado nesse projeto");
 		}
 		Participacao participacao = factoryParticipacao.criaGraduando(pessoa, projeto, projeto.getDataInicio(),
 				projeto.getDuracao(), qntHoras, valorHora);
@@ -58,8 +57,9 @@ public class GerenciadorParticipacao {
 			}
 		}
 		if (projeto instanceof Monitoria) {
-			if (valorHora < 0) {
-				throw new Exception("Erro na associacao de pessoa a projeto: Valor da hora invalido");
+			if (valorHora != 0) {
+				throw new Exception(
+						"Erro na associacao de pessoa a projeto: Valor da hora de um professor da monitoria deve ser zero");
 			}
 		}
 		if (projeto instanceof Monitoria) {
@@ -84,11 +84,6 @@ public class GerenciadorParticipacao {
 			}
 			if (!coordenador) {
 				throw new Exception("Erro na associacao de pessoa a projeto: PET deve ter um coordenador");
-			}
-		}
-		if (projeto instanceof CooperacaoEmpresas) {
-			if (projeto.contemCoordenador()) {
-				throw new Exception("Erro na associacao de pessoa a projeto: COOP nao pode ter mais de um coordenador");
 			}
 		}
 		if (projeto instanceof PED) {
@@ -119,7 +114,15 @@ public class GerenciadorParticipacao {
 		if (!(projeto instanceof CooperacaoEmpresas)) {
 			throw new Exception("Erro na associacao de pessoa a projeto: Este projeto nao pode ter profissional");
 		}
+		Participacao participacao = factoryParticipacao.criaProfissional(pessoa, projeto, projeto.getDataInicio(),
+				projeto.getDuracao(), qntHoras, valorHora, cargo);
+		pessoa.addParticipacao(participacao);
+		projeto.addParticipacao(participacao);
+	}
 
+	public void removeParticipacao(Pessoa pessoa, Projeto projeto) {
+		pessoa.removeParticipacao(projeto.getCodigo());
+		projeto.removeParticipacao(pessoa.getCpf());
 	}
 
 }

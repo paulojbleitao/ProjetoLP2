@@ -5,7 +5,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import participacao.PosGraduando;
+import participacao.Graduando;
 import participacao.Participacao;
 import participacao.Professor;
 import pessoa.Pessoa;
@@ -70,49 +70,55 @@ public abstract class Projeto {
 
 	public Participacao buscaParticipacao(Pessoa pessoa) {
 		for (Participacao participacao : participacoes) {
-			if (participacao.getProjeto().equals(pessoa)) {
+			if (participacao.getPessoa().equals(pessoa)) {
 				return participacao;
 			}
 		}
 		return null;
 	}
 
-	public boolean contemProfessor() {
-		boolean temProfessor = false;
+	public boolean contem(Pessoa pessoa) {
 		for (Participacao participacao : participacoes) {
-			if (participacao instanceof Professor) {
-				temProfessor = true;
+			if (participacao.getPessoa().equals(pessoa)) {
+				return true;
 			}
 		}
-		return temProfessor;
+		return false;
+	}
+
+	public boolean contemProfessor() {
+		for (Participacao participacao : participacoes) {
+			if (participacao instanceof Professor) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean contemCoordenador() {
-		boolean temCoordenador = false;
 		for (Participacao participacao : participacoes) {
 			if (participacao instanceof Professor) {
 				if (((Professor) participacao).isCoordenador()) {
-					temCoordenador = true;
+					return true;
 				}
 			}
 		}
-		return temCoordenador;
+		return false;
 	}
 
 	public boolean contemGraduando() {
-		boolean temGraduando = false;
 		for (Participacao participacao : participacoes) {
-			if (participacao instanceof PosGraduando) {
-				temGraduando = true;
+			if (participacao instanceof Graduando) {
+				return true;
 			}
 		}
-		return temGraduando;
+		return false;
 	}
 
 	public int getQntdGraduandos() {
 		int qntd = 0;
 		for (Participacao participacao : participacoes) {
-			if (participacao instanceof PosGraduando)
+			if (participacao instanceof Graduando)
 				qntd++;
 		}
 		return qntd;
@@ -130,8 +136,21 @@ public abstract class Projeto {
 			if (participacao.getPessoa().getCpf().equals(cpfPessoa)) {
 				participacoes.remove(participacao);
 				return;
-			}			
+			}
 		}
+	}
+
+	public String participacoesDeProjeto() {
+		String resposta = "";
+		participacoes.sort(null);
+
+		for (Participacao participacao : participacoes) {
+			if (resposta.equals(""))
+				resposta += participacao.getPessoa().getNome();
+			else
+				resposta += ", " + participacao.getPessoa().getNome();
+		}
+		return resposta;
 	}
 
 	@Override
