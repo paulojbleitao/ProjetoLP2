@@ -16,9 +16,6 @@ public class Graduando extends Participacao {
 	@Override
 	public double calculaValorBolsa() {
 		double bolsa = horasSemanais * valorHora;
-		if (bolsa < 350) {
-			bolsa = 350;
-		}
 		return bolsa;
 	}
 

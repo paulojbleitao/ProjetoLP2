@@ -41,7 +41,7 @@ public abstract class Participacao implements Comparable<Participacao> {
 			return false;
 	}
 
-	public abstract void calculaValorBolsa() throws Exception;
+	public abstract double calculaValorBolsa() throws Exception;
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -67,11 +67,6 @@ public abstract class Participacao implements Comparable<Participacao> {
 		return valorHora;
 	}
 
-<<<<<<< HEAD
-	public abstract double calculaValorBolsa();
-
-=======
->>>>>>> 2f763809cbab7a43f0659cd7043223ec56f60958
 	@Override
 	public int compareTo(Participacao p) {
 		return this.pessoa.getNome().compareTo(p.getPessoa().getNome());

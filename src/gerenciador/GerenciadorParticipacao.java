@@ -117,7 +117,7 @@ public class GerenciadorParticipacao {
 		projeto.addParticipacao(participacao);
 	}
 
-	public void removeParticipacao(Pessoa pessoa, Projeto projeto) {
+	public void removeParticipacao(Pessoa pessoa, Projeto projeto) throws Exception {
 		pessoa.removeParticipacao(projeto.getCodigo());
 		projeto.removeParticipacao(pessoa.getCpf());
 		

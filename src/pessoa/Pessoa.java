@@ -4,15 +4,7 @@ import java.util.ArrayList;
 
 import participacao.Graduando;
 import participacao.Participacao;
-<<<<<<< HEAD
-import participacao.Professor;
-import participacao.Profissional;
-import participacao.TipoProfissional;
-import projeto.Monitoria;
-import projeto.PED;
 import projeto.ProgramaInst;
-=======
->>>>>>> 2f763809cbab7a43f0659cd7043223ec56f60958
 import projeto.Projeto;
 import projeto.TipoProgramaInst;
 
@@ -61,7 +53,7 @@ public class Pessoa {
 		return null;
 	}
 
-	public void addParticipacao(Participacao participacao) {
+	public void addParticipacao(Participacao participacao) throws Exception {
 		valorBolsa += participacao.calculaValorBolsa();
 		if ((participacao.getProjeto() instanceof ProgramaInst && ((ProgramaInst) participacao.getProjeto()).getTipoPI() == TipoProgramaInst.PIVIC)) {
 			valorBolsa = 0;
@@ -69,7 +61,7 @@ public class Pessoa {
 		participacoes.add(participacao);
 	}
 
-	public void removeParticipacao(String codigo) {
+	public void removeParticipacao(String codigo) throws Exception {
 		for (Participacao participacao : participacoes) {
 			if (participacao.getProjeto().getCodigo().equals(codigo)) {
 				valorBolsa -= participacao.calculaValorBolsa();
@@ -118,6 +110,8 @@ public class Pessoa {
 	}
 
 	public double getValorBolsa() {
+		if (valorBolsa < 350)
+			return 350;
 		return valorBolsa;
 	}
 
