@@ -81,23 +81,19 @@ public class Pessoa {
 			
 		}
 		return resposta;
-
-		/*StringBuilder resposta = new StringBuilder();
-		for (Participacao participacao : participacoes) {
-			resposta.append(participacao.getProjeto().getNome() + ", ");
-		}
-		resposta.deleteCharAt(resposta.length() - 1);
-		return resposta.toString();
-		
-		// resposta = []
-		// respota = ["primeiro projeto, ", "swegundo projeto, "]; 
-		resposta.toString = primeiro projeto, segundo projeto,*/  
 	}
-
+/*
 	public double calculaPontos() {
-		int duracaoMonitoria = 0;
-		int duracaoProjetos = 0;
+		double pontosMonitoria = 0;
+		double pontosProjetos = 0;
 		for (Participacao p: this.participacoes) {
+			if (p.isMonitoria())
+				duracaoMonitoria += p.getDuracao();
+			else
+				duracaoProjetos += p.getDuracao();
+			
+			
+			pontos += p.calculaPontos();
 			if (p instanceof Professor) {
 				int temp = 4 * (p.getDuracao() / 12);
 				if (!(p.getProjeto() instanceof Monitoria))
@@ -134,7 +130,7 @@ public class Pessoa {
 		}
 		return this.pontos;
 	}
-
+*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;

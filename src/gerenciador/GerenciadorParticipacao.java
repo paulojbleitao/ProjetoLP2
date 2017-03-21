@@ -32,15 +32,10 @@ public class GerenciadorParticipacao {
 		projeto.addParticipacao(participacao);
 	}
 
-	public void associaPosGraduando(Pessoa pessoa, Projeto projeto, double valorHora, int qntHoras) throws Exception {
-		if (projeto instanceof PED) {
-			if (projeto.contemGraduando()) {
-				throw new Exception(
-						"Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando");
-			}
-
-		}
-		Participacao participacao = factoryParticipacao.criaPosGraduando(pessoa, projeto, projeto.getDataInicio(),
+	public void associaPosGraduando(Pessoa pessoa, Projeto projeto, String nivel, double valorHora, int qntHoras) throws Exception {
+		if (!(projeto instanceof Extensao) && !(projeto instanceof PED))
+			throw new Exception("Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando");
+		Participacao participacao = factoryParticipacao.criaPosGraduando(pessoa, projeto, nivel, projeto.getDataInicio(),
 				projeto.getDuracao(), qntHoras, valorHora);
 		pessoa.addParticipacao(participacao);
 		projeto.addParticipacao(participacao);

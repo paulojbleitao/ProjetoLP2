@@ -116,5 +116,10 @@ public class GerenciadorPessoa {
 		Pessoa p = this.buscaPessoa(cpf);
 		pessoas.remove(p);
 	}
+
+	public double calculaPontuacao(String cpf) throws Exception {
+		Pessoa p = this.buscaPessoa(cpf);
+		return p.calculaPontos();
+	}
 	
 }

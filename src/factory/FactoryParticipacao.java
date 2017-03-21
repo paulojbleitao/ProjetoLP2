@@ -7,6 +7,7 @@ import participacao.Graduando;
 import participacao.Participacao;
 import participacao.Professor;
 import participacao.Profissional;
+import participacao.TipoPosGraduando;
 import participacao.TipoProfissional;
 import pessoa.Pessoa;
 import projeto.Projeto;
@@ -19,9 +20,20 @@ public class FactoryParticipacao {
 		return graduando;
 	}
 
-	public Participacao criaPosGraduando(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao,
+	public Participacao criaPosGraduando(Pessoa pessoa, Projeto projeto, String nivel, LocalDate dataInicio, int duracao,
 			int horasSemanais, double valorHora) throws Exception {
-		Participacao posGraduando = new PosGraduando(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora);
+		TipoPosGraduando tipo = null;
+		switch(nivel.toUpperCase()) {
+			case "MESTRADO":
+				tipo = TipoPosGraduando.MESTRADO;
+				break;
+			case "DOUTORADO":
+				tipo = TipoPosGraduando.DOUTORADO;
+				break;
+			default:
+				throw new Exception("Erro na associacao de pessoa a projeto: Tipo de pos graduando invalido");
+		}
+		Participacao posGraduando = new PosGraduando(pessoa, projeto, tipo, dataInicio, duracao, horasSemanais, valorHora);
 		return posGraduando;
 	}
 
