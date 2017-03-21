@@ -122,4 +122,9 @@ public class GerenciadorPessoa {
 		return p.calculaPontos();
 	}
 	
+	public double getValorBolsa(String cpf) throws Exception {
+		Pessoa p = this.buscaPessoa(cpf);
+		return p.getValorBolsa();
+	}
+	
 }

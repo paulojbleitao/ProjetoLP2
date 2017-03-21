@@ -34,7 +34,7 @@ public class Profissional extends Participacao {
 			}
 		}
 		if (bolsa < 350) {
-			throw new Exception("Erro na associacao de pessoa a projeto: Valor da bolsa inferior a 350");
+			bolsa = 350;
 		}
 		pessoa.addValorBolsa(bolsa);
 
