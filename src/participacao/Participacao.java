@@ -3,6 +3,7 @@ package participacao;
 import java.time.LocalDate;
 
 import pessoa.Pessoa;
+import projeto.Monitoria;
 import projeto.Projeto;
 
 public abstract class Participacao implements Comparable<Participacao> {
@@ -23,6 +24,24 @@ public abstract class Participacao implements Comparable<Participacao> {
 		this.horasSemanais = horasSemanais;
 		this.valorHora = valorHora;
 	}
+
+	public double calculaPontos() {
+		if (this.getClass() == Graduando.class) {
+			return this.projeto.calculaPontosGraduando();
+		} else if (this.getClass() == Professor.class) {
+			return this.projeto.calculaPontosProfessor();
+		} 
+		return 0;
+	}
+
+	public boolean isMonitoria() {
+		if (this.projeto.getClass() == Monitoria.class)
+			return true;
+		else
+			return false;
+	}
+
+	public abstract void calculaValorBolsa() throws Exception;
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -47,8 +66,6 @@ public abstract class Participacao implements Comparable<Participacao> {
 	public double getValorHora() {
 		return valorHora;
 	}
-
-	public abstract void calculaValorBolsa() throws Exception;
 
 	@Override
 	public int compareTo(Participacao p) {

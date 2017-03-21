@@ -3,6 +3,7 @@ package participacao;
 import java.time.LocalDate;
 
 import pessoa.Pessoa;
+import projeto.PED;
 import projeto.Projeto;
 
 public class Profissional extends Participacao {
@@ -17,6 +18,22 @@ public class Profissional extends Participacao {
 
 	public TipoProfissional getTipoProfissional() {
 		return tipoProfissional;
+	}
+	
+	@Override
+	public double calculaPontos() {
+		super.calculaPontos();
+		if (this.getProjeto() instanceof PED) {
+			int pontos = 0;
+			if (this.tipoProfissional == TipoProfissional.DESENVOLVEDOR)
+				pontos += 5 * (this.getDuracao() / 12);
+			else if (this.tipoProfissional  == TipoProfissional.PESQUISADOR)
+				pontos += 6 * (this.getDuracao() / 12);
+			else if (this.tipoProfissional  == TipoProfissional.GERENTE)
+				pontos += 9 * (this.getDuracao() / 12);
+			return pontos;
+		}
+		return 0;
 	}
 
 	@Override

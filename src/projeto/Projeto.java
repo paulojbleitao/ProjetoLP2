@@ -157,6 +157,16 @@ public abstract class Projeto {
 		return resposta;
 	}
 
+	public double calculaPontosGraduando() {
+		return 2 * (this.duracao / 6);
+	}
+	
+	public double calculaPontosProfessor() {
+		double temp = 4 * (this.duracao / 12);
+		temp += this.getQntdGraduandos();
+		return temp;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
