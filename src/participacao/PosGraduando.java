@@ -7,26 +7,26 @@ import projeto.Projeto;
 
 public class PosGraduando extends Participacao {
 
-	private TipoPosGraduando tipoGraduando;
+	private TipoPosGraduando tipoPosGraduando;
 
-	public PosGraduando(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao, int horasSemanais,
-			double valorHora) {
+	public PosGraduando(Pessoa pessoa, Projeto projeto, TipoPosGraduando tipo, LocalDate dataInicio, int duracao,
+			int horasSemanais, double valorHora) {
 		super(pessoa, projeto, dataInicio, duracao, horasSemanais, valorHora);
-
+		this.tipoPosGraduando = tipo;
 	}
 
 	public TipoPosGraduando getTipoGraduando() {
-		return tipoGraduando;
+		return tipoPosGraduando;
 	}
 
 	public void setTipoGraduando(TipoPosGraduando tipoGraduando) {
-		this.tipoGraduando = tipoGraduando;
+		this.tipoPosGraduando = tipoGraduando;
 	}
 
 	@Override
 	public void calculaValorBolsa() throws Exception {
 		double bolsa = horasSemanais * valorHora;
-		if (tipoGraduando == TipoPosGraduando.POSGRADUANDO_DOUTORADO) {
+		if (tipoPosGraduando == TipoPosGraduando.POSGRADUANDO_DOUTORADO) {
 			bolsa += bolsa / 3;
 		}
 		if (bolsa < 350) {
