@@ -25,7 +25,7 @@ public abstract class Projeto {
 		this.dataInicio = dataInicio;
 		this.duracao = duracao;
 		this.codigo = codigo;
-		participacoes = new ArrayList<>();
+		this.participacoes = new ArrayList<>();
 	}
 
 	public String getNome() {
@@ -66,6 +66,10 @@ public abstract class Projeto {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<Participacao> getParticipacoes() {
+		return participacoes;
 	}
 
 	public Participacao buscaParticipacao(Pessoa pessoa) {

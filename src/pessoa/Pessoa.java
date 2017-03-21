@@ -18,6 +18,7 @@ public class Pessoa {
 	private String email;
 	private ArrayList<Participacao> participacoes;
 	private double pontos;
+	private double valorBolsa;
 
 	public Pessoa(String nome, String cpf, String email) throws Exception {
 		this.nome = nome;
@@ -25,6 +26,7 @@ public class Pessoa {
 		this.email = email;
 		this.participacoes = new ArrayList<>();
 		this.pontos = 0.0;
+		this.valorBolsa = 0.0;
 	}
 
 	public String getNome() {
@@ -59,15 +61,14 @@ public class Pessoa {
 	public void addParticipacao(Participacao participacao) {
 		participacoes.add(participacao);
 	}
-	
 
 	public void removeParticipacao(String codigo) {
 		for (Participacao participacao : participacoes) {
 			if (participacao.getProjeto().getCodigo().equals(codigo)) {
 				participacoes.remove(participacao);
 				return;
-			}			
-		} 
+			}
+		}
 	}
 
 	public String participacoesDePessoa() {
@@ -78,26 +79,16 @@ public class Pessoa {
 			} else {
 				resposta += ", " + participacao.getProjeto().getNome();
 			}
-			
+
 		}
 		return resposta;
 
-		/*StringBuilder resposta = new StringBuilder();
-		for (Participacao participacao : participacoes) {
-			resposta.append(participacao.getProjeto().getNome() + ", ");
-		}
-		resposta.deleteCharAt(resposta.length() - 1);
-		return resposta.toString();
-		
-		// resposta = []
-		// respota = ["primeiro projeto, ", "swegundo projeto, "]; 
-		resposta.toString = primeiro projeto, segundo projeto,*/  
 	}
 
 	public double calculaPontos() {
 		int duracaoMonitoria = 0;
 		int duracaoProjetos = 0;
-		for (Participacao p: this.participacoes) {
+		for (Participacao p : this.participacoes) {
 			if (p instanceof Professor) {
 				int temp = 4 * (p.getDuracao() / 12);
 				if (!(p.getProjeto() instanceof Monitoria))
@@ -133,6 +124,14 @@ public class Pessoa {
 			}
 		}
 		return this.pontos;
+	}
+
+	public void addValorBolsa(double valor) {
+		this.valorBolsa += valor;
+	}
+
+	public double getValorBolsa() {
+		return valorBolsa;
 	}
 
 	@Override

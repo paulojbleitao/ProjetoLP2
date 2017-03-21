@@ -48,11 +48,13 @@ public abstract class Participacao implements Comparable<Participacao> {
 		return valorHora;
 	}
 
+	public abstract void calculaValorBolsa() throws Exception;
+
 	@Override
 	public int compareTo(Participacao p) {
 		return this.pessoa.getNome().compareTo(p.getPessoa().getNome());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
