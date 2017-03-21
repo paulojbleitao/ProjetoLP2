@@ -17,6 +17,16 @@ public class Monitoria extends Projeto {
 		this.despesasConstantes = 0;
 	}
 
+	@Override
+	public double calculaPontosGraduando() {
+		return 1.5 * (this.getDuracao() / 6);
+	}
+
+	@Override
+	public double calculaPontosProfessor() {
+		return 4 * (this.getDuracao() / 12);
+	}
+	
 	public double getDespesasConstantes() {
 		return despesasConstantes;
 	}

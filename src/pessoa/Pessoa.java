@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import participacao.Graduando;
 import participacao.Participacao;
+<<<<<<< HEAD
 import participacao.Professor;
 import participacao.Profissional;
 import participacao.TipoProfissional;
 import projeto.Monitoria;
 import projeto.PED;
 import projeto.ProgramaInst;
+=======
+>>>>>>> 2f763809cbab7a43f0659cd7043223ec56f60958
 import projeto.Projeto;
 import projeto.TipoProgramaInst;
 
@@ -19,7 +22,6 @@ public class Pessoa {
 	private String cpf;
 	private String email;
 	private ArrayList<Participacao> participacoes;
-	private double pontos;
 	private double valorBolsa;
 
 	public Pessoa(String nome, String cpf, String email) throws Exception {
@@ -27,7 +29,6 @@ public class Pessoa {
 		this.cpf = cpf;
 		this.email = email;
 		this.participacoes = new ArrayList<>();
-		this.pontos = 0.0;
 		this.valorBolsa = 0.0;
 	}
 
@@ -91,57 +92,30 @@ public class Pessoa {
 		return resposta;
 
 	}
-/*
+
 	public double calculaPontos() {
-		int duracaoMonitoria = 0;
-		int duracaoProjetos = 0;
-		for (Participacao p : this.participacoes) {
+		double pontos = 0;
 		double pontosMonitoria = 0;
 		double pontosProjetos = 0;
-		for (Participacao p: this.participacoes) {
-			if (p.isMonitoria())
-				duracaoMonitoria += p.getDuracao();
-			else
-				duracaoProjetos += p.getDuracao();
-			
-			
-			pontos += p.calculaPontos();
-			if (p instanceof Professor) {
-				int temp = 4 * (p.getDuracao() / 12);
-				if (!(p.getProjeto() instanceof Monitoria))
-					temp += p.getProjeto().getQntdGraduandos();
-				this.pontos += temp;
-			} else if (p instanceof Graduando) {
-				double temp = 0.0;
-				if (p.getProjeto() instanceof Monitoria) {
-					duracaoMonitoria += p.getDuracao();
-					if (duracaoMonitoria >= 24)
-						temp += 6;
-					else
-						temp += 1.5 * (p.getDuracao() / 6);
+		for (Participacao p : this.participacoes) {
+			double temp = p.calculaPontos();
+			if (p.getClass() == Graduando.class) {
+				if (p.isMonitoria()) {
+					pontosMonitoria += temp;
+					if (pontosMonitoria > 6)
+						pontosMonitoria = 6;
 				} else {
-					duracaoProjetos += p.getDuracao();
-					if (duracaoProjetos >= 24)
-						temp += 8;
-					else
-						temp += 2 * (p.getDuracao() / 6);
+					pontosProjetos += temp;
+					if (pontosProjetos > 8)
+						pontosProjetos = 8;
 				}
-				this.pontos += temp;
-			} else if (p instanceof Profissional) {
-				int temp = 0;
-				if (p.getProjeto() instanceof PED) {
-					if (((Profissional) p).getTipoProfissional() == TipoProfissional.DESENVOLVEDOR)
-						temp += 5 * (p.getDuracao() / 12);
-					else if (((Profissional) p).getTipoProfissional() == TipoProfissional.PESQUISADOR)
-						temp += 6 * (p.getDuracao() / 12);
-					else if (((Profissional) p).getTipoProfissional() == TipoProfissional.GERENTE)
-						temp += 9 * (p.getDuracao() / 12);
-				}
+			} else {
 				pontos += temp;
 			}
 		}
-		return this.pontos;
-	} */
+		pontos += pontosMonitoria + pontosProjetos;
+		return pontos;
+	}
 
 	public double getValorBolsa() {
 		return valorBolsa;
