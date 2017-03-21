@@ -20,7 +20,7 @@ public class Profissional extends Participacao {
 	}
 
 	@Override
-	public void calculaValorBolsa() throws Exception {
+	public double calculaValorBolsa() {
 		double bolsa = horasSemanais * valorHora;
 		if (tipoProfissional == TipoProfissional.PESQUISADOR) {
 			bolsa += 100;
@@ -36,7 +36,7 @@ public class Profissional extends Participacao {
 		if (bolsa < 350) {
 			bolsa = 350;
 		}
-		pessoa.addValorBolsa(bolsa);
+		return bolsa;
 
 	}
 

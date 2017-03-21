@@ -48,7 +48,7 @@ public abstract class Participacao implements Comparable<Participacao> {
 		return valorHora;
 	}
 
-	public abstract void calculaValorBolsa() throws Exception;
+	public abstract double calculaValorBolsa();
 
 	@Override
 	public int compareTo(Participacao p) {

@@ -14,12 +14,12 @@ public class Graduando extends Participacao {
 	}
 
 	@Override
-	public void calculaValorBolsa() throws Exception {
+	public double calculaValorBolsa() {
 		double bolsa = horasSemanais * valorHora;
 		if (bolsa < 350) {
 			bolsa = 350;
 		}
-		pessoa.addValorBolsa(bolsa);
+		return bolsa;
 	}
 
 }

@@ -9,7 +9,9 @@ import participacao.Profissional;
 import participacao.TipoProfissional;
 import projeto.Monitoria;
 import projeto.PED;
+import projeto.ProgramaInst;
 import projeto.Projeto;
+import projeto.TipoProgramaInst;
 
 public class Pessoa {
 
@@ -59,14 +61,19 @@ public class Pessoa {
 	}
 
 	public void addParticipacao(Participacao participacao) {
+		valorBolsa += participacao.calculaValorBolsa();
+		if ((participacao.getProjeto() instanceof ProgramaInst && ((ProgramaInst) participacao.getProjeto()).getTipoPI() == TipoProgramaInst.PIVIC)) {
+			valorBolsa = 0;
+		}
 		participacoes.add(participacao);
 	}
 
 	public void removeParticipacao(String codigo) {
 		for (Participacao participacao : participacoes) {
 			if (participacao.getProjeto().getCodigo().equals(codigo)) {
+				valorBolsa -= participacao.calculaValorBolsa();
 				participacoes.remove(participacao);
-				return;
+				break;
 			}
 		}
 	}
@@ -135,10 +142,6 @@ public class Pessoa {
 		}
 		return this.pontos;
 	} */
-
-	public void addValorBolsa(double valor) {
-		this.valorBolsa += valor;
-	}
 
 	public double getValorBolsa() {
 		return valorBolsa;

@@ -20,15 +20,13 @@ public class Professor extends Participacao {
 	}
 
 	@Override
-	public void calculaValorBolsa() throws Exception {
+	public double calculaValorBolsa() {
 		double bolsa = horasSemanais * valorHora;
 		if (coordenador) {
 			bolsa += bolsa * 0.4;
 		}
-		if (bolsa < 350) {
-			bolsa = 350;
-		}
-		pessoa.addValorBolsa(bolsa);
+		return bolsa;
+
 	}
 
 }

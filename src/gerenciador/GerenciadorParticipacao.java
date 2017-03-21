@@ -10,7 +10,6 @@ import projeto.PED;
 import projeto.PET;
 import projeto.ProgramaInst;
 import projeto.Projeto;
-import projeto.TipoProgramaInst;
 
 public class GerenciadorParticipacao {
 
@@ -29,9 +28,6 @@ public class GerenciadorParticipacao {
 		}
 		Participacao participacao = factoryParticipacao.criaGraduando(pessoa, projeto, projeto.getDataInicio(),
 				projeto.getDuracao(), qntHoras, valorHora);
-		if (!(projeto instanceof ProgramaInst && ((ProgramaInst) projeto).getTipoPI() == TipoProgramaInst.PIVIC)) {
-			participacao.calculaValorBolsa();
-		}
 		pessoa.addParticipacao(participacao);
 		projeto.addParticipacao(participacao);
 	}
@@ -42,9 +38,6 @@ public class GerenciadorParticipacao {
 			throw new Exception("Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando");
 		Participacao participacao = factoryParticipacao.criaPosGraduando(pessoa, projeto, nivel,
 				projeto.getDataInicio(), projeto.getDuracao(), qntHoras, valorHora);
-		if (!(projeto instanceof ProgramaInst && ((ProgramaInst) projeto).getTipoPI() == TipoProgramaInst.PIVIC)) {
-			participacao.calculaValorBolsa();
-		}
 		pessoa.addParticipacao(participacao);
 		projeto.addParticipacao(participacao);
 	}
@@ -102,9 +95,6 @@ public class GerenciadorParticipacao {
 		}
 		Participacao participacao = factoryParticipacao.criaProfessor(pessoa, projeto, projeto.getDataInicio(),
 				projeto.getDuracao(), qntHoras, valorHora, coordenador);
-		if (!(projeto instanceof ProgramaInst && ((ProgramaInst) projeto).getTipoPI() == TipoProgramaInst.PIVIC)) {
-			participacao.calculaValorBolsa();
-		}
 		pessoa.addParticipacao(participacao);
 		projeto.addParticipacao(participacao);
 	}
@@ -130,6 +120,7 @@ public class GerenciadorParticipacao {
 	public void removeParticipacao(Pessoa pessoa, Projeto projeto) {
 		pessoa.removeParticipacao(projeto.getCodigo());
 		projeto.removeParticipacao(pessoa.getCpf());
+		
 	}
 
 }
