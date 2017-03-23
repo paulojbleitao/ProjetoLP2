@@ -6,6 +6,7 @@ import java.util.HashSet;
 import javafx.util.converter.LocalDateStringConverter;
 import producao.FactoryProducao;
 import producao.Producao;
+import projeto.CooperacaoEmpresas;
 import projeto.Extensao;
 import projeto.Monitoria;
 import projeto.PED;
@@ -17,12 +18,14 @@ import factory.FactoryPED;
 
 public class GerenciadorProjeto {
 
-	HashSet<Projeto> projetos;
+	private HashSet<Projeto> projetos;
+	private double colaboracao;
 
 	public GerenciadorProjeto() {
 		projetos = new HashSet<>();
+		colaboracao = 0.0;
 	}
-	
+
 	public Projeto buscaProjeto(String codigo) throws Exception {
 		for (Projeto projeto : projetos) {
 			if (projeto.getCodigo().equals(codigo)) {
@@ -56,7 +59,7 @@ public class GerenciadorProjeto {
 		}
 		try {
 			this.converteData(dataInicio);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
@@ -126,6 +129,8 @@ public class GerenciadorProjeto {
 		LocalDate data = this.converteData(dataInicio);
 		Projeto extensao = new Extensao(nome, objetivo, impacto, data, duracao, codigoStr);
 		projetos.add(extensao);
+		Extensao ext = (Extensao) extensao;
+		colaboracao += ext.calculaColaboracao();
 		return codigoStr;
 	}
 
@@ -142,59 +147,63 @@ public class GerenciadorProjeto {
 		HashSet<Producao> colecaoProd = getColecaoProd(prodTecnica, prodAcademica, patentes);
 		Projeto ped = factoryPED.criaPED(nome, categoria, colecaoProd, objetivo, data, duracao, codigoStr);
 		projetos.add(ped);
+		if (ped instanceof CooperacaoEmpresas) {
+			CooperacaoEmpresas coop = (CooperacaoEmpresas) ped;
+			colaboracao += coop.calculaColaboracao();
+		}
 		return codigoStr;
 
 	}
-	
+
 	public String getCodigoProjeto(String nome) {
-		for (Projeto p: projetos) {
+		for (Projeto p : projetos) {
 			if (p.getNome().equalsIgnoreCase(nome))
 				return p.getCodigo();
 		}
 		return null;
 	}
-	
+
 	public String getInfoProjeto(String codigo, String atributo) throws Exception {
 		Projeto p = buscaProjeto(codigo);
-		
-		switch(atributo.toUpperCase()) {
-			case "NOME":
-				return p.getNome();
-			case "OBJETIVO":
-				return p.getObjetivo();
-			case "DATA DE INICIO":
-				LocalDateStringConverter conversor = new LocalDateStringConverter();
-				return conversor.toString(p.getDataInicio());
-			case "DURACAO":
-				return "" + p.getDuracao();
-			case "PRODUCAO TECNICA":
-				if (p instanceof PET) {
-					PET p2 = (PET) p;
-					return "" + p2.getProducaoTecnica();
-				} else if (p instanceof PED) {
-					PED p2 = (PED) p;
-					return "" + p2.getProducaoTecnica();
-				}
-				break;
-			case "PRODUCAO ACADEMICA":
-				if (p instanceof PET) {
-					PET p2 = (PET) p;
-					return "" + p2.getProducaoAcademica();
-				} else if (p instanceof PED) {
-					PED p2 = (PED) p;
-					return "" + p2.getProducaoAcademica();
-				} else if (p instanceof Monitoria) {
-					throw new Exception("Erro na consulta de projeto: Monitoria nao possui Producao academica");
-				}
-				break;
-			case "PARTICIPACOES":
-				return p.participacoesDeProjeto();
-			default:
-				break;
+
+		switch (atributo.toUpperCase()) {
+		case "NOME":
+			return p.getNome();
+		case "OBJETIVO":
+			return p.getObjetivo();
+		case "DATA DE INICIO":
+			LocalDateStringConverter conversor = new LocalDateStringConverter();
+			return conversor.toString(p.getDataInicio());
+		case "DURACAO":
+			return "" + p.getDuracao();
+		case "PRODUCAO TECNICA":
+			if (p instanceof PET) {
+				PET p2 = (PET) p;
+				return "" + p2.getProducaoTecnica();
+			} else if (p instanceof PED) {
+				PED p2 = (PED) p;
+				return "" + p2.getProducaoTecnica();
+			}
+			break;
+		case "PRODUCAO ACADEMICA":
+			if (p instanceof PET) {
+				PET p2 = (PET) p;
+				return "" + p2.getProducaoAcademica();
+			} else if (p instanceof PED) {
+				PED p2 = (PED) p;
+				return "" + p2.getProducaoAcademica();
+			} else if (p instanceof Monitoria) {
+				throw new Exception("Erro na consulta de projeto: Monitoria nao possui Producao academica");
+			}
+			break;
+		case "PARTICIPACOES":
+			return p.participacoesDeProjeto();
+		default:
+			break;
 		}
 		throw new Exception("Erro na consulta de projeto: Atributo nulo ou invalido");
 	}
-	
+
 	public void editaProjeto(String codigo, String atributo, String valor) throws Exception {
 		Projeto p = buscaProjeto(codigo);
 		if (atributo.equalsIgnoreCase("nome")) {
@@ -215,12 +224,19 @@ public class GerenciadorProjeto {
 			p.setDataInicio(converteData(valor));
 		}
 	}
-	
+
 	public void removeProjeto(String codigo) throws Exception {
 		Projeto p = buscaProjeto(codigo);
 		projetos.remove(p);
+		if (p instanceof Extensao) {
+			Extensao ext = (Extensao) p;
+			colaboracao -= ext.calculaColaboracao();
+		} else if (p instanceof CooperacaoEmpresas) {
+			CooperacaoEmpresas coop = (CooperacaoEmpresas) p;
+			colaboracao -= coop.calculaColaboracao();
+		}
 	}
-	
+
 	private HashSet<Producao> getColecaoProd(int prodTecnica, int prodAcademica, int patentes) throws Exception {
 		if (prodTecnica < 0) {
 			throw new Exception("Erro no cadastro de projeto: Numero de producoes tecnicas invalido");
@@ -246,6 +262,10 @@ public class GerenciadorProjeto {
 			colecaoProd.add(pat);
 		}
 		return colecaoProd;
+	}
+
+	public double getColaboracao() {
+		return colaboracao;
 	}
 
 }

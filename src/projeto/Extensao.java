@@ -2,7 +2,7 @@ package projeto;
 
 import java.time.LocalDate;
 
-public class Extensao extends Projeto {
+public class Extensao extends Projeto implements Colaborativo {
 
 	private int impacto;
 	private double despesasEventuais;
@@ -38,6 +38,16 @@ public class Extensao extends Projeto {
 
 	public void setDespesasConstantes(double despesasConstantes) {
 		this.despesasConstantes = despesasConstantes;
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		if (despesasEventuais <= 10000) {
+			return 0;
+		}
+		double porcentagem = 0.1;
+		porcentagem -= impacto * 0.05;
+		return despesasEventuais * porcentagem;
 	}
 
 }
