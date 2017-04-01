@@ -49,16 +49,23 @@ public class CooperacaoEmpresas extends PED implements Colaborativo {
 		}
 		for (Producao p : colecaoProd) {
 			if (p.getProdutividade() == Produtividade.PRODUCAO_TECNICA) {
-				porcentagem += 0.003;
+				porcentagem += 0.003 * p.getQuant();
 			}
 		}
 		for (Producao p : colecaoProd) {
 			if (p.getProdutividade() == Produtividade.PRODUCAO_ACADEMICA) {
-				porcentagem -= 0.002;
+				porcentagem -= 0.002 * p.getQuant();
 			}
 		}
-		return (despesasEventuais + capital) * porcentagem;
+		porcentagem += 0.01 * (int) (capital / 100000);
+		return (despesasConstantes + despesasEventuais + capital) * porcentagem;
+	}
 
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		this.despesasConstantes = montanteBolsas;
+		this.despesasEventuais = montanteCusteio;
+		this.capital = montanteCapital;
 	}
 
 }

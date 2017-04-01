@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import pessoa.Pessoa;
 import projeto.Projeto;
+import projeto.Monitoria;
 
 public class Professor extends Participacao {
 
@@ -21,12 +22,13 @@ public class Professor extends Participacao {
 
 	@Override
 	public double calculaValorBolsa() {
+		if (this.getProjeto().getClass() == Monitoria.class)
+			return 0;
 		double bolsa = horasSemanais * valorHora;
 		if (coordenador) {
 			bolsa += bolsa * 0.4;
 		}
-		return bolsa;
-
+		return Math.max(bolsa, 350);
 	}
 
 }

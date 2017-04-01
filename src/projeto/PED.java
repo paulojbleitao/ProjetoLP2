@@ -6,7 +6,7 @@ import java.util.HashSet;
 import producao.Producao;
 import producao.Produtividade;
 
-public class PED extends Projeto {
+public abstract class PED extends Projeto {
 
 	protected HashSet<Producao> colecaoProd;
 	protected double despesasConstantes;

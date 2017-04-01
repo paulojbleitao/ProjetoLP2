@@ -79,5 +79,16 @@ public class PET extends Projeto {
 	public void setDespesasEventuais(double despesasEventuais) {
 		this.despesasEventuais = despesasEventuais;
 	}
+
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		this.despesasConstantes = montanteBolsas;
+		this.despesasEventuais = montanteCusteio;
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
 	
 }

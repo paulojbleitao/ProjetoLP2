@@ -20,4 +20,14 @@ public class ProgramaInst extends PED {
 		return tipoPI;
 	}
 
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		this.despesasConstantes = montanteBolsas;
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
+	
 }

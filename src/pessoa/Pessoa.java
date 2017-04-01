@@ -110,9 +110,7 @@ public class Pessoa {
 	}
 
 	public double getValorBolsa() {
-		if (valorBolsa < 350)
-			return 350;
-		return valorBolsa;
+		return Math.max(valorBolsa, 350);
 	}
 
 	@Override

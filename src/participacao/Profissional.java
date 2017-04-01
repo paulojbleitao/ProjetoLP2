@@ -50,10 +50,7 @@ public class Profissional extends Participacao {
 				bolsa += participantes * 20;
 			}
 		}
-		if (bolsa < 350) {
-			bolsa = 350;
-		}
-		return bolsa;
+		return Math.max(bolsa, 350);
 
 	}
 

@@ -20,10 +20,12 @@ public class GerenciadorProjeto {
 
 	private HashSet<Projeto> projetos;
 	private double colaboracao;
+	private double valorGasto;
 
 	public GerenciadorProjeto() {
 		projetos = new HashSet<>();
 		colaboracao = 0.0;
+		valorGasto = 0.0;
 	}
 
 	public Projeto buscaProjeto(String codigo) throws Exception {
@@ -129,8 +131,6 @@ public class GerenciadorProjeto {
 		LocalDate data = this.converteData(dataInicio);
 		Projeto extensao = new Extensao(nome, objetivo, impacto, data, duracao, codigoStr);
 		projetos.add(extensao);
-		Extensao ext = (Extensao) extensao;
-		colaboracao += ext.calculaColaboracao();
 		return codigoStr;
 	}
 
@@ -147,12 +147,7 @@ public class GerenciadorProjeto {
 		HashSet<Producao> colecaoProd = getColecaoProd(prodTecnica, prodAcademica, patentes);
 		Projeto ped = factoryPED.criaPED(nome, categoria, colecaoProd, objetivo, data, duracao, codigoStr);
 		projetos.add(ped);
-		if (ped instanceof CooperacaoEmpresas) {
-			CooperacaoEmpresas coop = (CooperacaoEmpresas) ped;
-			colaboracao += coop.calculaColaboracao();
-		}
 		return codigoStr;
-
 	}
 
 	public String getCodigoProjeto(String nome) {
@@ -228,13 +223,13 @@ public class GerenciadorProjeto {
 	public void removeProjeto(String codigo) throws Exception {
 		Projeto p = buscaProjeto(codigo);
 		projetos.remove(p);
-		if (p instanceof Extensao) {
+/*		if (p instanceof Extensao) {
 			Extensao ext = (Extensao) p;
 			colaboracao -= ext.calculaColaboracao();
 		} else if (p instanceof CooperacaoEmpresas) {
 			CooperacaoEmpresas coop = (CooperacaoEmpresas) p;
 			colaboracao -= coop.calculaColaboracao();
-		}
+		}*/
 	}
 
 	private HashSet<Producao> getColecaoProd(int prodTecnica, int prodAcademica, int patentes) throws Exception {
@@ -264,8 +259,29 @@ public class GerenciadorProjeto {
 		return colecaoProd;
 	}
 
+	public void atualizaDespesasProjeto(String codigo, double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		Projeto p = this.buscaProjeto(codigo);
+		p.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+	}
+	
+	public double calculaColaboracao(String codigo) throws Exception {
+		Projeto p = this.buscaProjeto(codigo);
+		double colaboracao = p.calculaColaboracao();
+		this.colaboracao += colaboracao;
+		return colaboracao;
+	}
+	
+
+	public void diminuiReceita(double valor) {
+		valorGasto += valor;
+	}
+	
 	public double getColaboracao() {
 		return colaboracao;
+	}
+
+	public double getTotalEmCaixa() {
+		return colaboracao - valorGasto;
 	}
 
 }

@@ -27,6 +27,16 @@ public class Monitoria extends Projeto {
 		return 4 * (this.getDuracao() / 12);
 	}
 	
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		this.despesasConstantes = montanteBolsas;
+	}
+	
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
+
 	public double getDespesasConstantes() {
 		return despesasConstantes;
 	}

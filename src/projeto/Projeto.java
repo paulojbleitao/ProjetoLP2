@@ -7,6 +7,7 @@ import java.util.List;
 
 import participacao.Graduando;
 import participacao.Participacao;
+import participacao.PosGraduando;
 import participacao.Professor;
 import pessoa.Pessoa;
 
@@ -122,7 +123,7 @@ public abstract class Projeto {
 	public int getQntdGraduandos() {
 		int qntd = 0;
 		for (Participacao participacao : participacoes) {
-			if (participacao instanceof Graduando)
+			if (participacao.getClass() == Graduando.class || participacao.getClass() == PosGraduando.class)
 				qntd++;
 		}
 		return qntd;
@@ -166,6 +167,10 @@ public abstract class Projeto {
 		temp += this.getQntdGraduandos();
 		return temp;
 	}
+	
+	public abstract void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital);
+		
+	public abstract double calculaColaboracao();
 	
 	@Override
 	public int hashCode() {

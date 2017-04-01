@@ -17,7 +17,7 @@ public class Facade {
 	    args = new String[] {"facade.Facade", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt",
 	    		"acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", 
 	    		"acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt",
-	    		"acceptance_tests/us5_test.txt"};
+	    		"acceptance_tests/us5_test.txt","acceptance_tests/us6_test.txt", "acceptance_tests/us6_test_exception.txt"};
 	    EasyAccept.main(args);
 	}
 	
@@ -217,6 +217,24 @@ public class Facade {
 		return gPessoa.getValorBolsa(cpf);
 	}
 
-
+	public void atualizaDespesasProjeto(String codigo, double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		gProjeto.atualizaDespesasProjeto(codigo, montanteBolsas, montanteCusteio, montanteCapital);
+	}
+	
+	public double calculaColaboracaoUASC(String codigo) throws Exception {
+		return gProjeto.calculaColaboracao(codigo);
+	}
+	
+	public void diminuiReceita(double valor) {
+		gProjeto.diminuiReceita(valor);
+	}
+	
+	public double calculaColaboracaoTotalUASC() {
+		return gProjeto.getColaboracao();
+	}
+	
+	public double calculaTotalEmCaixaUASC() {
+		return gProjeto.getTotalEmCaixa();
+	}
 	
 }

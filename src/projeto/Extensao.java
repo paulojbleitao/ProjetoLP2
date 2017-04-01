@@ -46,8 +46,14 @@ public class Extensao extends Projeto implements Colaborativo {
 			return 0;
 		}
 		double porcentagem = 0.1;
-		porcentagem -= impacto * 0.05;
-		return despesasEventuais * porcentagem;
+		porcentagem -= impacto * 0.005;
+		return (despesasEventuais + despesasConstantes) * porcentagem;
+	}
+
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		this.despesasConstantes = montanteBolsas;
+		this.despesasEventuais = montanteCusteio;
 	}
 
 }

@@ -34,7 +34,7 @@ public class GerenciadorParticipacao {
 
 	public void associaPosGraduando(Pessoa pessoa, Projeto projeto, String nivel, double valorHora, int qntHoras)
 			throws Exception {
-		if (!(projeto instanceof Extensao) && !(projeto instanceof PED))
+		if (!(projeto instanceof Extensao) && !(projeto instanceof CooperacaoEmpresas))
 			throw new Exception("Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando");
 		Participacao participacao = factoryParticipacao.criaPosGraduando(pessoa, projeto, nivel,
 				projeto.getDataInicio(), projeto.getDuracao(), qntHoras, valorHora);

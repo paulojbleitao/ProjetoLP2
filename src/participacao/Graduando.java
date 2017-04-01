@@ -16,7 +16,7 @@ public class Graduando extends Participacao {
 	@Override
 	public double calculaValorBolsa() {
 		double bolsa = horasSemanais * valorHora;
-		return bolsa;
+		return Math.max(bolsa, 350);
 	}
 
 }
