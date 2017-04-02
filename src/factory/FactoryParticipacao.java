@@ -1,5 +1,6 @@
 package factory;
 
+import java.io.Serializable;
 import java.time.*;
 
 import participacao.PosGraduando;
@@ -12,7 +13,9 @@ import participacao.TipoProfissional;
 import pessoa.Pessoa;
 import projeto.Projeto;
 
-public class FactoryParticipacao {
+public class FactoryParticipacao implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public Participacao criaGraduando(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao,
 			int horasSemanais, double valorHora) {

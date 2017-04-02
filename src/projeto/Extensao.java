@@ -4,11 +4,12 @@ import java.time.LocalDate;
 
 public class Extensao extends Projeto implements Colaborativo {
 
+	private static final long serialVersionUID = 1L;
 	private int impacto;
 	private double despesasEventuais;
 	private double despesasConstantes;
 
-	public Extensao(String nome, String objetivo, int impacto, LocalDate dataInicio, int duracao, String codigo)
+	public Extensao(String nome, String objetivo, int impacto, LocalDate dataInicio, int duracao, int codigo)
 			throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.impacto = impacto;
@@ -51,7 +52,9 @@ public class Extensao extends Projeto implements Colaborativo {
 	}
 
 	@Override
-	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		if (montanteCapital > 0)
+			throw new Exception("Erro na atualizacao de projeto: projeto do tipo Extensao nao permite despesas de capital");
 		this.despesasConstantes = montanteBolsas;
 		this.despesasEventuais = montanteCusteio;
 	}

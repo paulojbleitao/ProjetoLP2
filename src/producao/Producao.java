@@ -1,7 +1,10 @@
 package producao;
 
-public class Producao {
+import java.io.Serializable;
 
+public class Producao implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Produtividade produtividade;
 	private int quant;
 

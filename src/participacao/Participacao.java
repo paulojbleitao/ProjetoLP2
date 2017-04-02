@@ -1,13 +1,15 @@
 package participacao;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import pessoa.Pessoa;
 import projeto.Monitoria;
 import projeto.Projeto;
 
-public abstract class Participacao implements Comparable<Participacao> {
+public abstract class Participacao implements Comparable<Participacao>, Serializable {
 
+	private static final long serialVersionUID = 1L;
 	protected Pessoa pessoa;
 	protected Projeto projeto;
 	protected LocalDate dataInicio;

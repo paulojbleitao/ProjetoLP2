@@ -1,5 +1,6 @@
 package pessoa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import participacao.Graduando;
@@ -8,8 +9,9 @@ import projeto.ProgramaInst;
 import projeto.Projeto;
 import projeto.TipoProgramaInst;
 
-public class Pessoa {
-
+public class Pessoa implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String cpf;
 	private String email;
@@ -61,9 +63,9 @@ public class Pessoa {
 		participacoes.add(participacao);
 	}
 
-	public void removeParticipacao(String codigo) throws Exception {
+	public void removeParticipacao(int codigo) throws Exception {
 		for (Participacao participacao : participacoes) {
-			if (participacao.getProjeto().getCodigo().equals(codigo)) {
+			if (participacao.getProjeto().getCodigo() == codigo) {
 				valorBolsa -= participacao.calculaValorBolsa();
 				participacoes.remove(participacao);
 				break;

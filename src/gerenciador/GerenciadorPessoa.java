@@ -1,11 +1,13 @@
 package gerenciador;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 import pessoa.Pessoa;
 
-public class GerenciadorPessoa {
-
+public class GerenciadorPessoa implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	HashSet<Pessoa> pessoas;
 	
 	public GerenciadorPessoa() {

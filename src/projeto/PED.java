@@ -7,11 +7,12 @@ import producao.Producao;
 import producao.Produtividade;
 
 public abstract class PED extends Projeto {
-
+	
+	private static final long serialVersionUID = 1L;
 	protected HashSet<Producao> colecaoProd;
 	protected double despesasConstantes;
 
-	public PED(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
+	public PED(String nome, String objetivo, LocalDate dataInicio, int duracao, int codigo,
 			HashSet<Producao> colecaoProd) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.colecaoProd = colecaoProd;

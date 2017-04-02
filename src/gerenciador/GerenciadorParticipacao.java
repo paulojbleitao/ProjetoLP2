@@ -1,5 +1,7 @@
 package gerenciador;
 
+import java.io.Serializable;
+
 import factory.FactoryParticipacao;
 import participacao.Participacao;
 import pessoa.Pessoa;
@@ -11,8 +13,9 @@ import projeto.PET;
 import projeto.ProgramaInst;
 import projeto.Projeto;
 
-public class GerenciadorParticipacao {
+public class GerenciadorParticipacao implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private FactoryParticipacao factoryParticipacao;
 
 	public GerenciadorParticipacao() {

@@ -7,6 +7,7 @@ import projeto.Projeto;
 
 public class PosGraduando extends Participacao {
 
+	private static final long serialVersionUID = 1L;
 	private TipoPosGraduando tipoPosGraduando;
 
 	public PosGraduando(Pessoa pessoa, Projeto projeto, TipoPosGraduando tipo, LocalDate dataInicio, int duracao,

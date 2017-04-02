@@ -8,6 +8,7 @@ import projeto.Projeto;
 
 public class Profissional extends Participacao {
 
+	private static final long serialVersionUID = 1L;
 	private TipoProfissional tipoProfissional;
 
 	public Profissional(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao, int horasSemanais,

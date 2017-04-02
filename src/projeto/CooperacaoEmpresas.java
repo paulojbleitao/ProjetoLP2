@@ -8,15 +8,15 @@ import producao.Produtividade;
 
 public class CooperacaoEmpresas extends PED implements Colaborativo {
 
+	private static final long serialVersionUID = 1L;
 	private double despesasEventuais;
 	private double capital;
 
-	public CooperacaoEmpresas(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
+	public CooperacaoEmpresas(String nome, String objetivo, LocalDate dataInicio, int duracao, int codigo,
 			HashSet<Producao> colecaoProd) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo, colecaoProd);
 		this.despesasEventuais = 0;
 		this.capital = 0;
-		// tratamento dos valores
 	}
 
 	public double getDespesasEventuais() {
@@ -62,7 +62,9 @@ public class CooperacaoEmpresas extends PED implements Colaborativo {
 	}
 
 	@Override
-	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		if (montanteBolsas <= 0 || montanteCusteio <= 0 || montanteCapital <= 0)
+			throw new Exception("Erro na atualizacao de projeto: projeto do tipo Coop devem possuir todas as despesas");
 		this.despesasConstantes = montanteBolsas;
 		this.despesasEventuais = montanteCusteio;
 		this.capital = montanteCapital;

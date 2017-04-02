@@ -4,12 +4,13 @@ import java.time.LocalDate;
 
 public class Monitoria extends Projeto {
 
+	private static final long serialVersionUID = 1L;
 	private String disciplina;
 	private double despesasConstantes;
 	private int rendimento;
 
 	public Monitoria(String nome, String disciplina, String objetivo, int rendimento, LocalDate dataInicio, int duracao,
-			String codigo) throws Exception {
+			int codigo) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.despesasConstantes = 0;
 		this.disciplina = disciplina;
@@ -28,7 +29,9 @@ public class Monitoria extends Projeto {
 	}
 	
 	@Override
-	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		if (montanteCusteio > 0 || montanteCapital > 0)
+			throw new Exception("Erro na atualizacao de projeto: projeto do tipo monitoria nao permite despesas de custeio ou capital");
 		this.despesasConstantes = montanteBolsas;
 	}
 	

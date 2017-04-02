@@ -8,13 +8,14 @@ import producao.Produtividade;
 
 public class PET extends Projeto {
 	
+	private static final long serialVersionUID = 1L;
 	private int impacto;
 	private int rendimento;
 	private HashSet<Producao> colecaoProd;
 	private double despesasConstantes;
 	private double despesasEventuais;
 	
-	public PET(String nome, String objetivo, LocalDate dataInicio, int duracao, String codigo,
+	public PET(String nome, String objetivo, LocalDate dataInicio, int duracao, int codigo,
 			int impacto, int rendimento, HashSet<Producao> colecaoProd) throws Exception {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.impacto = impacto;
@@ -81,7 +82,9 @@ public class PET extends Projeto {
 	}
 
 	@Override
-	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) throws Exception {
+		if (montanteCapital > 0)
+			throw new Exception("Erro na atualizacao de projeto: projeto do tipo PET nao permite despesas de capital");
 		this.despesasConstantes = montanteBolsas;
 		this.despesasEventuais = montanteCusteio;
 	}

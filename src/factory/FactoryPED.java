@@ -12,7 +12,7 @@ import projeto.TipoProgramaInst;
 public class FactoryPED {
 
 	public PED criaPED(String nome, String categoria, HashSet<Producao> colecaoProd, String objetivo,
-			LocalDate dataInicio, int duracao, String codigo) throws Exception {
+			LocalDate dataInicio, int duracao, int codigo) throws Exception {
 		String categoriaCL = categoria.toUpperCase();
 		if (categoriaCL.equals("PIBIC")) {
 			PED progInst = new ProgramaInst(nome, objetivo, dataInicio, duracao, codigo, colecaoProd,

@@ -8,6 +8,7 @@ import projeto.Monitoria;
 
 public class Professor extends Participacao {
 
+	private static final long serialVersionUID = 1L;
 	private boolean coordenador;
 
 	public Professor(Pessoa pessoa, Projeto projeto, LocalDate dataInicio, int duracao, int horasSemanais,
