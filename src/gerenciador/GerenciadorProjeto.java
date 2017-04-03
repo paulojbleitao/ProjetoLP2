@@ -23,9 +23,13 @@ public class GerenciadorProjeto implements Serializable {
 	private int contador;
 	private double colaboracao;
 	private double valorGasto;
+	private FactoryPED factoryPED;
+	private FactoryProducao factoryProd;
 
 	public GerenciadorProjeto() {
 		projetos = new HashSet<>();
+		factoryPED = new FactoryPED();
+		factoryProd = new FactoryProducao();
 		contador = 0;
 		colaboracao = 0.0;
 		valorGasto = 0.0;
@@ -139,7 +143,6 @@ public class GerenciadorProjeto implements Serializable {
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
 			String objetivo, String dataInicio, int duracao) throws Exception {
 		validaProjeto(nome, objetivo, duracao);
-		FactoryPED factoryPED = new FactoryPED();
 		if (!(validaData(dataInicio))) {
 			throw new Exception("Erro no cadastro de projeto: Data nula ou vazia");
 		}
@@ -242,7 +245,6 @@ public class GerenciadorProjeto implements Serializable {
 			throw new Exception("Erro no cadastro de projeto: Numero de patentes invalido");
 		}
 		HashSet<Producao> colecaoProd = new HashSet<>();
-		FactoryProducao factoryProd = new FactoryProducao();
 		if (prodTecnica > 0) {
 			Producao prodTec = factoryProd.criaProducao("producaoTecnica", prodTecnica);
 			colecaoProd.add(prodTec);
